@@ -10,72 +10,87 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.pjcribbin.healthtracker.Home">
 
-    <TextView
-        android:id="@+id/step_count"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textAllCaps="true"
-        android:textSize="75sp"
-        android:textAlignment="center"
-        android:textStyle="bold"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="STEPS TODAY"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/step_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="75sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/track_workout_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Track Workout" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="STEPS TODAY"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/calories_count"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textAllCaps="true"
-        android:textSize="75sp"
-        android:textAlignment="center"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CALORIES TODAY"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
-
-    <Button
-        android:id="@+id/track_meal_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Track Meal" />
+        <Button
+            android:id="@+id/track_workout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track Workout" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/calories_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="75sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CALORIES TODAY"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/track_meal_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track Meal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/view_history_button"
-            android:onClick="displayHistory"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="View History"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="displayHistory"
+            android:text="View History" />
 
         <Button
             android:id="@+id/view_stats_button"
-            android:onClick="displayStats"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="View Stats"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="displayStats"
+            android:text="View Stats" />
 
     </LinearLayout>
 
