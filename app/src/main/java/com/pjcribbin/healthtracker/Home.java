@@ -2,6 +2,7 @@ package com.pjcribbin.healthtracker;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,15 +42,18 @@ public class Home extends AppCompatActivity {
     }
 
     public void displayHistory(View view) {
-        setContentView(R.layout.activity_history);
+        Intent i = new Intent(getApplicationContext(), History.class);
+        startActivity(i);
     }
 
     public void displayAddMeal(View view) {
-        setContentView(R.layout.activity_add_meal);
+        Intent i = new Intent(getApplicationContext(), AddMeal.class);
+        startActivity(i);
     }
 
     public void displayStats(View view) {
-        setContentView(R.layout.activity_stats);
+        Intent i = new Intent(getApplicationContext(), Stats.class);
+        startActivity(i);
     }
 
     protected void createDatabase() {
@@ -66,8 +70,7 @@ public class Home extends AppCompatActivity {
                     "salt DOUBLE," +
                     "fiber DOUBLE)");
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -15,8 +15,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".History" />
-        <activity android:name=".Stats"></activity>
+        <activity android:name=".History">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.Home" />
+        </activity>
+        <activity android:name=".Stats">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.Home" />
+        </activity>
+        <activity android:name=".AddMeal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.Home" />
+        </activity>
     </application>
 
 </manifest>

@@ -67,8 +67,8 @@
             android:id="@+id/track_meal_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Track Meal"
-            android:onClick="displayAddMeal"/>
+            android:onClick="displayAddMeal"
+            android:text="Track Meal" />
     </LinearLayout>
 
     <LinearLayout
