@@ -31,7 +31,8 @@
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
         <activity android:name=".AddNewFood" />
-        <activity android:name=".AddNewMeal"></activity>
+        <activity android:name=".AddNewMeal" />
+        <activity android:name=".AddWorkout"></activity>
     </application>
 
 </manifest>
