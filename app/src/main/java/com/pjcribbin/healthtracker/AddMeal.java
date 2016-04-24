@@ -18,17 +18,17 @@ public class AddMeal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
 
-        ListView foodList = (ListView) findViewById(R.id.food_list);
+        ListView mealList = (ListView) findViewById(R.id.meal_list);
 
-        final ArrayList<String> food = new ArrayList<>();
+        final ArrayList<String> meals = new ArrayList<>();
 
-        food.add("+ Add new food");
+        meals.add("+ Add new meal");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, food);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, meals);
 
-        foodList.setAdapter(arrayAdapter);
+        mealList.setAdapter(arrayAdapter);
 
-        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
