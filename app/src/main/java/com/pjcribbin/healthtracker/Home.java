@@ -27,8 +27,8 @@ public class Home extends AppCompatActivity {
         if (isTaskRoot()) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_lock_power_off)
-                    .setTitle("Do you widdsh to exit?")
-                    .setMessage("Do you want to exit the app?")
+                    .setTitle("Exit")
+                    .setMessage("Do you want to exit Health Tracker?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
