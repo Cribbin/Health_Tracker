@@ -1,12 +1,15 @@
 package com.pjcribbin.healthtracker;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddNewFood extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
@@ -48,75 +51,66 @@ public class AddNewFood extends AppCompatActivity {
 
 
         Database dbHelper = new Database(this);
-
         db = dbHelper.getWritableDatabase();
 
-        String query = "INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, potassium) VALUES (";
+        db.execSQL("DELETE FROM Food");
 
-        if (!foodName.matches("")) {
-            query += "'" + foodName + "', ";
-            Log.i(TAG, "Food Name: " + query);
+        String query = "INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, potassium) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        SQLiteStatement statement = db.compileStatement(query);
+
+
+        if (foodName.matches("") || foodName.matches("\\s+")) {
+            Toast.makeText(getApplicationContext(), "Food name required", Toast.LENGTH_SHORT).show();
         } else {
-            query += "NULL, ";
-            Log.i(TAG, "Food Name: " + query);
-        }
+            statement.bindString(1, foodName);
 
-        if (!calories.matches("")) {
-            query += calories + ", ";
-            Log.i(TAG, "Calories: " + query);
-        } else {
-            query += "NULL, ";
-            Log.i(TAG, "Calories: " + query);
-        }
+            if (!calories.matches("")) {
+                statement.bindString(2, calories);
+            } else {
+                statement.bindNull(2);
+            }
 
-        if (!carbohydrates.matches("")) {
-            query += carbohydrates + ", ";
-            Log.i(TAG, "Carbohydrates: " + query);
-        } else {
-            query += "NULL, ";
-            Log.i(TAG, "Carbohydrates: " + query);
-        }
+            if (!carbohydrates.matches("")) {
+                statement.bindString(3, carbohydrates);
+            } else {
+                statement.bindNull(3);
+            }
 
-        if (!fat.matches("")) {
-            query += fat + ", ";
-            Log.i(TAG, "Fat: " + query);
-        } else {
-            query += "NULL, ";
-            Log.i(TAG, "Fat: " + query);
-        }
+            if (!fat.matches("")) {
+                statement.bindString(4, fat);
+            } else {
+                statement.bindNull(4);
+            }
 
-        if (!protein.matches("")) {
-            query += protein + ", ";
-            Log.i(TAG, "Protein: " + query);
-        } else {
-            query += "NULL, ";
-            Log.i(TAG, "Protein: " + query);
-        }
+            if (!protein.matches("")) {
+                statement.bindString(5, protein);
+            } else {
+                statement.bindNull(5);
+            }
 
-        if (!sodium.matches("")) {
-            query += sodium + ", ";
-            Log.i(TAG, "Sodium: " + query);
-        } else {
-            query += "NULL, ";
-            Log.i(TAG, "Sodium: " + query);
-        }
+            if (!sodium.matches("")) {
+                statement.bindString(6, sodium);
+            } else {
+                statement.bindNull(6);
+            }
 
-        if (!potassium.matches("")) {
-            query += potassium + " )";
-            Log.i(TAG, "Potassium: " + query);
-        } else {
-            query += "NULL) ";
-            Log.i(TAG, "Potassium: " + query);
-        }
+            if (!potassium.matches("")) {
+                statement.bindString(7, potassium);
+            } else {
+                statement.bindNull(7);
+            }
 
-        try {
-            Log.i(TAG, "Yes");
-        } catch (Exception e) {
-            Log.e(TAG, "INSERT INTO Food Error:\n" + query);
-            e.printStackTrace();
-        }
+            try {
+                statement.execute();
+            } catch (Exception e) {
+                Log.e(TAG, "INSERT INTO Food Error:\n" + query);
+                e.printStackTrace();
+            } finally {
+                db.close();
+            }
 
-        /*Intent i = new Intent(getApplicationContext(), AddFood.class);
-        startActivity(i);*/
+            Intent i = new Intent(getApplicationContext(), AddFood.class);
+            startActivity(i);
+        }
     }
 }
