@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class AddMeal extends AppCompatActivity {
+    private final static String TAG = "PJ_Health_Tracker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

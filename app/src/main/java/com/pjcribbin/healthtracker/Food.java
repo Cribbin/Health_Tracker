@@ -1,6 +1,8 @@
 package com.pjcribbin.healthtracker;
 
 public class Food {
+    private final static String TAG = "PJ_Health_Tracker";
+
     private int id;
     private String name;
     private int calories;

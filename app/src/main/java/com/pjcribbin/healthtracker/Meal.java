@@ -1,7 +1,6 @@
 package com.pjcribbin.healthtracker;
 
-import java.util.ArrayList;
-
 public class Meal {
+    private final static String TAG = "PJ_Health_Tracker";
 
 }

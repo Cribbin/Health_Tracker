@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 
 public class AddNewMeal extends AppCompatActivity {
+    private final static String TAG = "PJ_Health_Tracker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,6 @@ public class AddNewMeal extends AppCompatActivity {
     }
 
     public void addMeal(View view) {
-        Log.i("PJ", "Meal added successfully");
+        Log.i(TAG, "Meal added successfully");
     }
 }

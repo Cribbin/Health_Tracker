@@ -2,22 +2,16 @@ package com.pjcribbin.healthtracker;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import java.util.ArrayList;
-
 public class AddFood extends AppCompatActivity {
-    private final static String TAG = "PJ";
-    SQLiteDatabase db;
+    private final static String TAG = "PJ_Health_Tracker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +19,6 @@ public class AddFood extends AppCompatActivity {
         setContentView(R.layout.activity_add_food);
 
         Database dbHelper = new Database(this);
-        Log.i("PJ", dbHelper.getDatabaseName());
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT _id, food_name FROM Food", null);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 public class History extends AppCompatActivity {
+    private final static String TAG = "PJ_Health_Tracker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 
 public class Home extends AppCompatActivity {
+    private final static String TAG = "PJ_Health_Tracker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
