@@ -8,6 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.pjcribbin.healthtracker.AddFood">
 
+
     <ListView
         android:id="@+id/food_list"
         android:layout_width="match_parent"
@@ -15,5 +16,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
+
+    <Button
+        android:id="@+id/new_food_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addNewFood"
+        android:text="New Food" />
 
 </LinearLayout>
