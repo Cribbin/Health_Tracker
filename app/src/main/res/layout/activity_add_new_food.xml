@@ -26,44 +26,44 @@
         android:inputType="number" />
 
     <EditText
+        android:id="@+id/food_carbohydrates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="250dp"
+        android:hint="Carbohydrates (0.0g)"
+        android:inputType="numberDecimal" />
+
+    <EditText
         android:id="@+id/food_fat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Fat"
-        android:inputType="number" />
+        android:hint="Fat (0.0g)"
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/food_protein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Protein"
-        android:inputType="number" />
+        android:hint="Protein (0.0g)"
+        android:inputType="numberDecimal" />
 
     <EditText
-        android:id="@+id/food_sugar"
+        android:id="@+id/food_sodium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Sugar"
-        android:inputType="number" />
+        android:hint="Sodium (0.0mg)"
+        android:inputType="numberDecimal" />
 
     <EditText
-        android:id="@+id/food_salt"
+        android:id="@+id/food_potassium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Salt"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/food_fiber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Fiber"
-        android:inputType="number" />
+        android:hint="Potassium (0.0mg)"
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/add_food_button"
