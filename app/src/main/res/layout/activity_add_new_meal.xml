@@ -17,15 +17,24 @@
         android:layout_height="wrap_content"
         android:hint="Name of meal" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_width="match_parent"
-        android:layout_height="126dp"
-        android:layout_gravity="center_horizontal" />
+    <Button
+        android:text="Add Food 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_food_1"
+        android:onClick="displayAddFood"/>
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal" />
+    <Button
+        android:text="Add Food 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_food_2"
+        android:onClick="displayAddFood"/>
+
+    <Button
+        android:text="Add Food 3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_food_3"
+        android:onClick="displayAddFood"/>
 </LinearLayout>

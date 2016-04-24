@@ -3,7 +3,6 @@ package com.pjcribbin.healthtracker;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,7 +27,7 @@ public class Home extends AppCompatActivity {
         if (isTaskRoot()) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_lock_power_off)
-                    .setTitle("Do you wish to exit?")
+                    .setTitle("Do you widdsh to exit?")
                     .setMessage("Do you want to exit the app?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override

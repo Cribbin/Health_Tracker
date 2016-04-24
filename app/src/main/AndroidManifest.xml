@@ -37,6 +37,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
+        <activity android:name=".AddFood"></activity>
     </application>
 
 </manifest>

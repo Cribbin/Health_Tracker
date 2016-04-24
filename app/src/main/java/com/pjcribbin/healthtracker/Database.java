@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 public class Database extends AppCompatActivity {
-    protected void createFoodTable(SQLiteDatabase database) {
+    protected static void createFoodTable(SQLiteDatabase database) {
         try {
             database.execSQL("CREATE TABLE IF NOT EXISTS Food" +
                     "(food_id INT PRIMARY KEY," +
@@ -21,5 +21,12 @@ public class Database extends AppCompatActivity {
         }
     }
 
+    protected static void insertIntoTable(SQLiteDatabase db, String tableName) {
+      /*  try {
 
+        }
+        catch (Exception e) {
+
+        } */
+    }
 }
