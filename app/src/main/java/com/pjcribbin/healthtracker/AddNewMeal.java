@@ -3,6 +3,7 @@ package com.pjcribbin.healthtracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -23,5 +24,9 @@ public class AddNewMeal extends AppCompatActivity {
     public void displayAddFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddFood.class);
         startActivity(i);
+    }
+
+    public void addMeal(View view) {
+        Log.i("PJ", "Meal added successfully");
     }
 }

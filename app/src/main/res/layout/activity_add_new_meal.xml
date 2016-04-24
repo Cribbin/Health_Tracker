@@ -15,26 +15,27 @@
         android:id="@+id/meal_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:hint="Name of meal" />
 
     <Button
-        android:id="@+id/add_food_1"
+        android:id="@+id/add_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:onClick="displayAddFood"
-        android:text="Add Food 1" />
+        android:text="Add Food" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <Button
-        android:id="@+id/add_food_2"
-        android:layout_width="wrap_content"
+        android:id="@+id/add_meal_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="displayAddFood"
-        android:text="Add Food 2" />
-
-    <Button
-        android:id="@+id/add_food_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="displayAddFood"
-        android:text="Add Food 3" />
+        android:layout_weight="0"
+        android:onClick="addMeal"
+        android:text="Add Meal" />
 </LinearLayout>

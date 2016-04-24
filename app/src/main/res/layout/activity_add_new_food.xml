@@ -65,4 +65,11 @@
         android:hint="Fiber"
         android:inputType="number" />
 
+    <Button
+        android:id="@+id/add_food_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addFood"
+        android:text="Add Food" />
+
 </LinearLayout>
