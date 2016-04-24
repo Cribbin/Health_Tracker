@@ -37,7 +37,8 @@
             android:id="@+id/track_workout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Track Workout" />
+            android:text="Track Workout"
+            android:onClick="displayAddWorkout"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +60,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CALORIES TODAY"
+            android:text="@string/calories_today"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:textSize="20sp" />
 
