@@ -53,8 +53,6 @@ public class AddNewFood extends AppCompatActivity {
         Database dbHelper = new Database(this);
         db = dbHelper.getWritableDatabase();
 
-        db.execSQL("DELETE FROM Food");
-
         String query = "INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, potassium) VALUES (?, ?, ?, ?, ?, ?, ?)";
         SQLiteStatement statement = db.compileStatement(query);
 
@@ -103,12 +101,14 @@ public class AddNewFood extends AppCompatActivity {
             try {
                 statement.execute();
             } catch (Exception e) {
+                Toast.makeText(AddNewFood.this, "Error creating " + foodName, Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "INSERT INTO Food Error:\n" + query);
                 e.printStackTrace();
             } finally {
                 db.close();
             }
 
+            Toast.makeText(AddNewFood.this, foodName + " created successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), AddFood.class);
             startActivity(i);
         }
