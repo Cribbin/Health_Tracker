@@ -10,11 +10,11 @@ public class Database {
                     "(food_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "food_name VARCHAR(32)," +
                     "calories INTEGER," +
-                    "fat DOUBLE," +
-                    "protein DOUBLE," +
-                    "sugar DOUBLE," +
-                    "salt DOUBLE," +
-                    "fiber DOUBLE)");
+                    "carbohydrates REAL," +
+                    "fat REAL," +
+                    "protein REAL," +
+                    "sodium REAL," +
+                    "potassium REAL)");
 
         } catch (Exception e) {
             Log.e("PJ", "Create food table error");
