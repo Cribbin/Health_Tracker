@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Health Tracker</string>
+    <string name="zero">0</string>
+    <string name="steps_today">Steps Today</string>
+    <string name="calories_today">Calories Today</string>
+    <string name="track_workout">Track Workout</string>
+    <string name="track_meal">Track Meal</string>
+    <string name="view_history">View History</string>
+    <string name="view_stats">View Stats</string>
 </resources>
