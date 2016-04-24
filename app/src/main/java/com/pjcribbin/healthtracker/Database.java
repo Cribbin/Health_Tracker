@@ -1,14 +1,25 @@
 package com.pjcribbin.healthtracker;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class Database {
-    protected static void createFoodTable(SQLiteDatabase db) {
+public class Database extends SQLiteOpenHelper {
+    private static int version = 1;
+
+    public Database(Context ctx) {
+        super(ctx, "Fitness.db", null, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
         try {
+            db.execSQL("DROP TABLE IF EXISTS Food");
+
             db.execSQL("CREATE TABLE IF NOT EXISTS Food" +
-                    "(food_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "food_name VARCHAR(32)," +
+                    "(_id INTEGER PRIMARY KEY," +
+                    "food_name TEXT," +
                     "calories INTEGER," +
                     "carbohydrates REAL," +
                     "fat REAL," +
@@ -22,7 +33,8 @@ public class Database {
         }
     }
 
-    protected static void insertIntoTable(SQLiteDatabase db, String tableName) {
-
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
+        // Upgrade schema if there's any changes
     }
 }
