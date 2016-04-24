@@ -20,7 +20,7 @@ public class AddNewMeal extends AppCompatActivity {
         return true;
     }
 
-    public void displayAddFood (View view) {
+    public void displayAddFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddFood.class);
         startActivity(i);
     }

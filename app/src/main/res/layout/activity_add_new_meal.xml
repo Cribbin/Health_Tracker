@@ -18,23 +18,23 @@
         android:hint="Name of meal" />
 
     <Button
-        android:text="Add Food 1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/add_food_1"
-        android:onClick="displayAddFood"/>
-
-    <Button
-        android:text="Add Food 2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="displayAddFood"
+        android:text="Add Food 1" />
+
+    <Button
         android:id="@+id/add_food_2"
-        android:onClick="displayAddFood"/>
-
-    <Button
-        android:text="Add Food 3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="displayAddFood"
+        android:text="Add Food 2" />
+
+    <Button
         android:id="@+id/add_food_3"
-        android:onClick="displayAddFood"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="displayAddFood"
+        android:text="Add Food 3" />
 </LinearLayout>
