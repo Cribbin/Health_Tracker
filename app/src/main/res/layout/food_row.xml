@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Name"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="Calories: " />
+
+        <TextView
+            android:id="@+id/num_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:text="0" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:paddingLeft="15dp"
+            android:text="Carbohydrates: " />
+
+        <TextView
+            android:id="@+id/num_carbohyrates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_row="0"
+            android:text="0.0g" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="Fat: " />
+
+        <TextView
+            android:id="@+id/num_fats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:text="0.0g" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:paddingLeft="15dp"
+            android:text="Protein: " />
+
+        <TextView
+            android:id="@+id/num_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_row="1"
+            android:text="0.0g" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:text="Sodium: " />
+
+        <TextView
+            android:id="@+id/num_sodium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:text="0.0mg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="2"
+            android:paddingLeft="15dp"
+            android:text="Potassium: " />
+
+        <TextView
+            android:id="@+id/num_potassium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_row="2"
+            android:text="0.0mg" />
+
+    </GridLayout>
+</LinearLayout>
