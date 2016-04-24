@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 1;
+    private static int version = 2;
+    private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
         super(ctx, "Fitness.db", null, version);
@@ -15,7 +16,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL("DROP TABLE IF EXISTS Food");
+            Log.i(TAG, "Creating database");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Food" +
                     "(_id INTEGER PRIMARY KEY," +
@@ -27,14 +28,16 @@ public class Database extends SQLiteOpenHelper {
                     "sodium REAL," +
                     "potassium REAL)");
 
+            Log.i(TAG, "Database created successfully");
+
         } catch (Exception e) {
-            Log.e("PJ", "Create food table error");
+            Log.e(TAG, "Could not create Food table");
             e.printStackTrace();
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
-        // Upgrade schema if there's any changes
+        Log.i(TAG, "Database updated to Version " + newVer);
     }
 }
