@@ -32,7 +32,11 @@
         </activity>
         <activity android:name=".AddNewFood" />
         <activity android:name=".AddNewMeal" />
-        <activity android:name=".AddWorkout"></activity>
+        <activity android:name=".AddWorkout">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.Home" />
+        </activity>
     </application>
 
 </manifest>
