@@ -60,23 +60,4 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), Stats.class);
         startActivity(i);
     }
-
-    protected void createDatabase() {
-        try {
-            SQLiteDatabase database = this.openOrCreateDatabase("Fitness", MODE_PRIVATE, null);
-
-            database.execSQL("CREATE TABLE IF NOT EXISTS Food" +
-                    "(food_id INT PRIMARY KEY," +
-                    "food_name VARCHAR(32)," +
-                    "calories INT," +
-                    "fat DOUBLE," +
-                    "protein DOUBLE," +
-                    "sugar DOUBLE," +
-                    "salt DOUBLE," +
-                    "fiber DOUBLE)");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
