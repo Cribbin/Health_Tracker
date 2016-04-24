@@ -18,7 +18,6 @@ public class AddMeal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
-        Log.i("PJ", "Test");
 
         ListView foodList = (ListView) findViewById(R.id.food_list);
 
