@@ -21,28 +21,16 @@ public class AddMeal extends AppCompatActivity {
 
         ListView mealList = (ListView) findViewById(R.id.meal_list);
 
-        final ArrayList<String> meals = new ArrayList<>();
-
-        meals.add("+ Add new meal");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, meals);
-
-        mealList.setAdapter(arrayAdapter);
-
-        mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
-                    startActivity(i);
-                }
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void addNewMeal(View view) {
+        Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
+        startActivity(i);
     }
 }
