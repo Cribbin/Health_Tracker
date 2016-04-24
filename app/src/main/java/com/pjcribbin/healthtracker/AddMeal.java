@@ -3,7 +3,6 @@ package com.pjcribbin.healthtracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +24,7 @@ public class AddMeal extends AppCompatActivity {
 
         food.add("+ Add new food");
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, food);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, food);
 
         foodList.setAdapter(arrayAdapter);
 
