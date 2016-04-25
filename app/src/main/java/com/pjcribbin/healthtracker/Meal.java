@@ -18,7 +18,7 @@ public class Meal {
     }
 
     public void addFood(Food food, int num) {
-        Integer qty = new Integer(num);
+        Integer qty = num;
 
         mealContents.get(0).add(food);
         mealContents.get(1).add(qty);
