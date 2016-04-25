@@ -21,7 +21,7 @@ public class AddFood extends AppCompatActivity {
         Database dbHelper = new Database(this);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM Food", null);
+        Cursor c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
         c.getCount();
 
         ListView foodList = (ListView) findViewById(R.id.food_list);
