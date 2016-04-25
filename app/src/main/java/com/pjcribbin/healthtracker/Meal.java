@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Meal {
     private final static String TAG = "PJ_Health_Tracker";
 
-    private ArrayList<ArrayList> mealContents;
+    private ArrayList<ArrayList<Object>> mealContents;
 
     Meal() {
-        mealContents.set(0, new ArrayList<Food>());
-        mealContents.set(1, new ArrayList<Integer>());
+        mealContents.set(0, new ArrayList<>());
+        mealContents.set(1, new ArrayList<>());
     }
 
     public void addFood(Food food) {
