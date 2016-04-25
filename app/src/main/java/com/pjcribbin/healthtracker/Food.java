@@ -10,22 +10,11 @@ public class Food {
     private double fat;
     private double protein;
     private double sodium;
-    private double potassium;
+    private double sugar;
 
     Food(int id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    Food(int id, String name, int calories, double carbohydrates, double fat, double protein, double sodium, double potassium) {
-        this.id = id;
-        this.name = name;
-        this.calories = calories;
-        this.carbohydrates = carbohydrates;
-        this.fat = fat;
-        this.protein = protein;
-        this.sodium = sodium;
-        this.potassium = potassium;
     }
 
     public int getId() {
@@ -36,27 +25,51 @@ public class Food {
         return name;
     }
 
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
     public int getCalories() {
         return calories;
+    }
+
+    public void setCarbohydrates(double carbohydrates) {
+        this.carbohydrates = carbohydrates;
     }
 
     public double getCarbohydrates() {
         return carbohydrates;
     }
 
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
+
     public double getFat() {
         return fat;
+    }
+
+    public void setProtein(double protein) {
+        this.protein = protein;
     }
 
     public double getProtein() {
         return protein;
     }
 
+    public void setSodium(double sodium) {
+        this.sodium = sodium;
+    }
+
     public double getSodium() {
         return sodium;
     }
 
-    public double getPotassium() {
-        return potassium;
+    public void setSugar(double sugar) {
+        this.sugar = sugar;
+    }
+
+    public double getSugar() {
+        return sugar;
     }
 }
