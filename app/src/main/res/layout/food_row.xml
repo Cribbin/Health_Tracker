@@ -104,18 +104,19 @@
             android:layout_column="2"
             android:layout_row="2"
             android:paddingLeft="15dp"
-            android:text="Potassium: " />
+            android:text="Sugar: " />
 
         <TextView
-            android:id="@+id/num_potassium"
+            android:id="@+id/num_sugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="3"
             android:layout_row="2"
             android:text="0.0mg" />
 
-        <TextView android:id="@+id/food_id"
-            android:textSize="0dp"/>
+        <TextView
+            android:id="@+id/food_id"
+            android:textSize="0dp" />
 
     </GridLayout>
 </LinearLayout>

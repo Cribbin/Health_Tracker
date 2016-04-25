@@ -46,14 +46,14 @@ public class AddNewFood extends AppCompatActivity {
         EditText editSodium = (EditText) findViewById(R.id.food_sodium);
         String sodium = editSodium.getText().toString();
 
-        EditText editPotassium = (EditText) findViewById(R.id.food_potassium);
+        EditText editPotassium = (EditText) findViewById(R.id.food_sugar);
         String potassium = editPotassium.getText().toString();
 
 
         Database dbHelper = new Database(this);
         db = dbHelper.getWritableDatabase();
 
-        String query = "INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, potassium) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) VALUES (?, ?, ?, ?, ?, ?, ?)";
         SQLiteStatement statement = db.compileStatement(query);
 
 

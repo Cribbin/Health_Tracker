@@ -15,7 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Name" />
+        android:hint="Name"
+        android:maxLength="64" />
 
     <EditText
         android:id="@+id/food_calories"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:hint="Calories"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="16" />
 
     <EditText
         android:id="@+id/food_carbohydrates"
@@ -31,7 +33,8 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:hint="Carbohydrates (0.0g)"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="6" />
 
     <EditText
         android:id="@+id/food_fat"
@@ -39,7 +42,8 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:hint="Fat (0.0g)"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="6" />
 
     <EditText
         android:id="@+id/food_protein"
@@ -47,7 +51,8 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:hint="Protein (0.0g)"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="6" />
 
     <EditText
         android:id="@+id/food_sodium"
@@ -55,15 +60,17 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:hint="Sodium (0.0mg)"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="6" />
 
     <EditText
-        android:id="@+id/food_potassium"
+        android:id="@+id/food_sugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="250dp"
-        android:hint="Potassium (0.0mg)"
-        android:inputType="numberDecimal" />
+        android:hint="Sugar (0.0g)"
+        android:inputType="numberDecimal"
+        android:maxLength="6" />
 
     <Button
         android:id="@+id/add_food_button"
