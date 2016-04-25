@@ -38,7 +38,6 @@ public class AddFood extends AppCompatActivity {
             );
 
             db.close();
-            c.close();
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
             e.printStackTrace();
@@ -49,22 +48,66 @@ public class AddFood extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    TextView textView = (TextView) view.findViewById(R.id.food_id);
-                    int foodId = Integer.parseInt((String) textView.getText());
+                    try {
+                        TextView textView = (TextView) view.findViewById(R.id.food_id);
+                        int foodId = Integer.parseInt((String) textView.getText());
 
-                    textView = (TextView) view.findViewById(R.id.food_name);
-                    String foodName = (String) textView.getText();
+                        textView = (TextView) view.findViewById(R.id.food_name);
+                        String foodName = (String) textView.getText();
 
-                    textView = (TextView) view.findViewById(R.id.num_calories);
-                    String calories = (String) textView.getText();
-                    if (calories == null) {
-                        calories = "";
+                        Food foodClicked = new Food(foodId, foodName);
+
+                    /* Add calories */
+                        textView = (TextView) view.findViewById(R.id.num_calories);
+                        String calories = (String) textView.getText();
+                        if (!calories.equals("")) {
+                            foodClicked.setCalories(Integer.parseInt(calories));
+                        }
+
+                    /* Add carbohydrates */
+                        textView = (TextView) view.findViewById(R.id.num_carbohyrates);
+                        String carbohydrates = (String) textView.getText();
+                        if (!carbohydrates.equals("")) {
+                            foodClicked.setCarbohydrates(Double.parseDouble(carbohydrates));
+                        }
+
+                    /* Add fat */
+                        textView = (TextView) view.findViewById(R.id.num_fats);
+                        String fat = (String) textView.getText();
+                        if (!fat.equals("")) {
+                            foodClicked.setFat(Double.parseDouble(fat));
+                        }
+
+                    /* Add protein */
+                        textView = (TextView) view.findViewById(R.id.num_protein);
+                        String protein = (String) textView.getText();
+                        if (!protein.equals("")) {
+                            foodClicked.setProtein(Double.parseDouble(protein));
+                        }
+
+                    /* Add sodium */
+                        textView = (TextView) view.findViewById(R.id.num_sodium);
+                        String sodium = (String) textView.getText();
+                        if (!sodium.equals("")) {
+                            foodClicked.setSodium(Double.parseDouble(sodium));
+                        }
+
+                    /* Add sugar */
+                        textView = (TextView) view.findViewById(R.id.num_sugar);
+                        String sugar = (String) textView.getText();
+                        if (!sugar.equals("")) {
+                            foodClicked.setSugar(Double.parseDouble(sugar));
+                        }
+
+                        Log.i(TAG, "ID: " + foodId + "\nName: " + foodName + "\nCalories: " + foodClicked.getCalories());
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error selecting item", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error on create Food item");
+                        e.printStackTrace();
                     }
-
-                    Log.i(TAG, "ID: " + foodId + "\nName: " + foodName + "\nCalories: " + calories + "\nCarbohydrates: ");
                 }
-
             });
+
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();

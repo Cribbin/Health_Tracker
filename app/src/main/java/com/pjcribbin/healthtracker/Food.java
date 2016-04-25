@@ -5,12 +5,12 @@ public class Food {
 
     private int id;
     private String name;
-    private int calories;
-    private double carbohydrates;
-    private double fat;
-    private double protein;
-    private double sodium;
-    private double sugar;
+    private int calories = -1;
+    private double carbohydrates = -1;
+    private double fat = -1;
+    private double protein = -1;
+    private double sodium = -1;
+    private double sugar = -1;
 
     Food(int id, String name) {
         this.id = id;
