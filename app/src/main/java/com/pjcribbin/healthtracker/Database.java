@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 5;
+    private static int version = 6;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -72,7 +72,7 @@ public class Database extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE IF NOT EXISTS Food_Meal" +
                     "(food_id INTEGER," +
                     "meal_id INTEGER," +
-                    "qty INTEGER" +
+                    "qty INTEGER," +
                     "PRIMARY KEY (food_id, meal_id)" +
                     ")");
 
