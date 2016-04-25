@@ -3,6 +3,7 @@ package com.pjcribbin.healthtracker;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AddFood extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
+    private ArrayList<String> foodSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class AddFood extends AppCompatActivity {
     }
 
     private void setUpFoodList() {
+        foodSelected = new ArrayList<>();
         final ListView foodList = (ListView) findViewById(R.id.food_list);
 
         try {
@@ -50,55 +55,58 @@ public class AddFood extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.food_id);
                     int foodId = Integer.parseInt((String) textView.getText());
+                    view.findViewById(R.id.food_row).setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
+                    /*
                     textView = (TextView) view.findViewById(R.id.food_name);
                     String foodName = (String) textView.getText();
 
                     Food foodClicked = new Food(foodId, foodName);
 
-                    /* Add calories */
+                    // Add calories
                     textView = (TextView) view.findViewById(R.id.num_calories);
                     String calories = (String) textView.getText();
                     if (!calories.equals("")) {
                         foodClicked.setCalories(Integer.parseInt(calories));
                     }
 
-                    /* Add carbohydrates */
+                    // Add carbohydrates
                     textView = (TextView) view.findViewById(R.id.num_carbohyrates);
                     String carbohydrates = (String) textView.getText();
                     if (!carbohydrates.equals("")) {
                         foodClicked.setCarbohydrates(Double.parseDouble(carbohydrates));
                     }
 
-                    /* Add fat */
+                    // Add fat
                     textView = (TextView) view.findViewById(R.id.num_fats);
                     String fat = (String) textView.getText();
                     if (!fat.equals("")) {
                         foodClicked.setFat(Double.parseDouble(fat));
                     }
 
-                    /* Add protein */
+                    // Add protein
                     textView = (TextView) view.findViewById(R.id.num_protein);
                     String protein = (String) textView.getText();
                     if (!protein.equals("")) {
                         foodClicked.setProtein(Double.parseDouble(protein));
                     }
 
-                    /* Add sodium */
+                    // Add sodium
                     textView = (TextView) view.findViewById(R.id.num_sodium);
                     String sodium = (String) textView.getText();
                     if (!sodium.equals("")) {
                         foodClicked.setSodium(Double.parseDouble(sodium));
                     }
 
-                    /* Add sugar */
+                    // Add sugar
                     textView = (TextView) view.findViewById(R.id.num_sugar);
                     String sugar = (String) textView.getText();
                     if (!sugar.equals("")) {
                         foodClicked.setSugar(Double.parseDouble(sugar));
-                    }
+                    }*/
 
-                    Log.i(TAG, "ID: " + foodId + "\nName: " + foodName + "\nCalories: " + foodClicked.getCalories());
+                    foodSelected.add(String.valueOf(foodId));
+                    Log.i(TAG, "Item added");
                 }
             });
         } catch (Exception e) {
@@ -111,5 +119,15 @@ public class AddFood extends AppCompatActivity {
     public void addNewFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddNewFood.class);
         startActivity(i);
+    }
+
+    public void addMeal(View view) {
+        Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
+
+        if (foodSelected.size() > 0) {
+            i.putStringArrayListExtra("foodIdList", foodSelected);
+            startActivity(i);
+        } else
+            Toast.makeText(getApplicationContext(), "You must select at least one food", Toast.LENGTH_SHORT).show();
     }
 }

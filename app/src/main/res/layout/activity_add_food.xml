@@ -6,6 +6,14 @@
     android:orientation="vertical"
     tools:context="com.pjcribbin.healthtracker.AddFood">
 
+    <Button
+        android:id="@+id/new_food_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:onClick="addNewFood"
+        android:text="New Food" />
+
     <ListView
         android:id="@+id/food_list"
         android:layout_width="match_parent"
@@ -16,11 +24,11 @@
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/new_food_button"
+        android:id="@+id/add_meal_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:onClick="addNewFood"
-        android:text="New Food" />
+        android:onClick="addMeal"
+        android:text="Add Meal" />
 
 </LinearLayout>
