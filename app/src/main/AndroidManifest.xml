@@ -30,14 +30,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".AddNewFood" />
-        <activity android:name=".AddNewMeal" />
+        <activity android:name=".AddNewFood">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.AddFood" />
+        </activity>
+        <activity android:name=".AddNewMeal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.AddMeal" />
+        </activity>
         <activity android:name=".AddWorkout">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".AddFood"></activity>
+        <activity android:name=".AddFood">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pjcribbin.healthtracker.AddNewMeal" />
+        </activity>
     </application>
 
 </manifest>
