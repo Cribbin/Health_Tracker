@@ -21,13 +21,13 @@ public class AddFood extends AppCompatActivity {
         Database dbHelper = new Database(this);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT _id, food_name FROM Food", null);
+        Cursor c = db.rawQuery("SELECT * FROM Food", null);
         c.getCount();
 
         ListView foodList = (ListView) findViewById(R.id.food_list);
 
         foodList.setAdapter(
-                new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, c, new String[] {"food_name", "food_name"}, new int[] {android.R.id.text1}, 0)
+                new SimpleCursorAdapter(this, R.layout.food_row, c, new String[] {"food_name", "calories", "carbohydrates", "fat", "protein", "sodium", "potassium"}, new int[] {R.id.food_name, R.id.num_calories, R.id.num_carbohyrates, R.id.num_fats, R.id.num_protein, R.id.num_sodium, R.id.num_potassium}, 0)
         );
         db.close();
     }
