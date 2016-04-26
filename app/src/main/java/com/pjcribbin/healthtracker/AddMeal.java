@@ -1,26 +1,34 @@
 package com.pjcribbin.healthtracker;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class AddMeal extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
+    private static SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
 
-        ListView mealList = (ListView) findViewById(R.id.meal_list);
-
+        openDatabase();
+        setUpMealList();
     }
 
     @Override
@@ -29,8 +37,48 @@ public class AddMeal extends AppCompatActivity {
         return true;
     }
 
+    private void setUpMealList() {
+        final ListView mealList = (ListView) findViewById(R.id.meal_list);
+        Cursor c;
+
+        try {
+            c = db.rawQuery("SELECT * FROM Meal ORDER BY meal_name ASC", null);
+
+            mealList.setAdapter(
+                    new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, c, new String[]{"meal_name"}, new int[]{android.R.id.text1}, 0)
+            );
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up list from database");
+            e.printStackTrace();
+        }
+
+        try {
+            mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.i(TAG, "Meal clicked");
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error on select meal item");
+            e.printStackTrace();
+        }
+    }
+
     public void addNewMeal(View view) {
         Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
         startActivity(i);
+    }
+
+    private void openDatabase() {
+        try {
+            Database dbHelper = new Database(this);
+            db = dbHelper.getWritableDatabase();
+        } catch (Exception e) {
+            Log.e(TAG, "Error opening database");
+            e.printStackTrace();
+        }
     }
 }
