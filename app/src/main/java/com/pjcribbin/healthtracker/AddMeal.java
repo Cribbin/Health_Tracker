@@ -45,7 +45,7 @@ public class AddMeal extends AppCompatActivity {
             c = db.rawQuery("SELECT * FROM Meal ORDER BY meal_name ASC", null);
 
             mealList.setAdapter(
-                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"meal_name", "meal_type"}, new int[]{R.id.meal_name, R.id.meal_type}, 0)
+                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"_id", "meal_name", "meal_type"}, new int[]{R.id.meal_id, R.id.meal_name, R.id.meal_type}, 0)
             );
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
@@ -57,7 +57,12 @@ public class AddMeal extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.i(TAG, "Meal clicked");
+                    TextView textView = (TextView) view.findViewById(R.id.meal_id);
+                    int mealId = Integer.parseInt((String) textView.getText());
+                    textView = (TextView) view.findViewById(R.id.meal_name);
+                    String mealName = (String) textView.getText();
+
+                    Log.i(TAG, "Meal ID: " + mealId + "\nMeal Name: " + mealName);
                 }
             });
         } catch (Exception e) {
