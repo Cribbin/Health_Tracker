@@ -15,37 +15,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".History">
+        <activity
+            android:name=".History"
+            android:label="History">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".Stats">
+        <activity
+            android:name=".Stats"
+            android:label="Stats">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".AddMeal">
+        <activity
+            android:name=".AddMeal"
+            android:label="Select Meal">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".AddNewFood">
+        <activity
+            android:name=".AddNewFood"
+            android:label="Create New Food">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.AddFood" />
         </activity>
-        <activity android:name=".AddNewMeal">
+        <activity
+            android:name=".AddNewMeal"
+            android:label="Create New Meal">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.AddMeal" />
         </activity>
-        <activity android:name=".AddWorkout">
+        <activity
+            android:name=".AddWorkout"
+            android:label="Select Workout">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.Home" />
         </activity>
-        <activity android:name=".AddFood">
+        <activity
+            android:name=".AddFood"
+            android:label="Select Food">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.AddNewMeal" />
