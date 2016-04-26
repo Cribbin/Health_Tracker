@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class AddFood extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private ArrayList<String> foodSelected;
-    private static Cursor c;
     private static SQLiteDatabase db;
 
     @Override
@@ -37,6 +36,7 @@ public class AddFood extends AppCompatActivity {
     private void setUpFoodList() {
         foodSelected = new ArrayList<>();
         final ListView foodList = (ListView) findViewById(R.id.food_list);
+        Cursor c;
 
         try {
             c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
