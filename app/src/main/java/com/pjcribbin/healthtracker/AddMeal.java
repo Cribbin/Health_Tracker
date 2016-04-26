@@ -45,7 +45,7 @@ public class AddMeal extends AppCompatActivity {
             c = db.rawQuery("SELECT * FROM Meal ORDER BY meal_name ASC", null);
 
             mealList.setAdapter(
-                    new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, c, new String[]{"meal_name"}, new int[]{android.R.id.text1}, 0)
+                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"meal_name", "meal_type"}, new int[]{R.id.meal_name, R.id.meal_type}, 0)
             );
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");

@@ -10,11 +10,6 @@
         android:id="@+id/meal_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <Button
@@ -22,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addNewMeal"
-        android:text="New Meal" />
+        android:text="New Meal"
+        android:layout_weight="0"/>
 
 </LinearLayout>
