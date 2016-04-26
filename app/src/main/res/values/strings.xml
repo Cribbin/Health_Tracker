@@ -12,7 +12,7 @@
     <string name="new_food">New Food</string>
     <string name="name_of_meal">Name of Meal</string>
     <string name="add_food">Add Food</string>
-    <string name="insert_food">Insert Food</string>
+    <string name="edit_food">Edit Food</string>
 
     <string-array name="meal_types">
         <item>Other</item>

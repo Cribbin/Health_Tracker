@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="displayAddFood"
-        android:text="@string/insert_food" />
+        android:text="@string/edit_food" />
 
 
     <ListView

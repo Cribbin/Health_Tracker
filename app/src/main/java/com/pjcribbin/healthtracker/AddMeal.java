@@ -68,7 +68,7 @@ public class AddMeal extends AppCompatActivity {
     }
 
     public void addNewMeal(View view) {
-        Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
+        Intent i = new Intent(getApplicationContext(), AddFood.class);
         startActivity(i);
     }
 
