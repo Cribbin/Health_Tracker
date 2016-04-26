@@ -6,24 +6,43 @@
     android:orientation="vertical"
     tools:context="com.pjcribbin.healthtracker.AddNewMeal">
 
-    <EditText
-        android:id="@+id/meal_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:hint="Name of meal" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_weight="0">
+
+       <EditText
+           android:id="@+id/meal_name"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:hint="@string/name_of_meal"
+           android:layout_weight="1"/>
+
+       <Spinner
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/meal_type_spinner"
+           android:entries="@array/meal_types"
+           android:layout_weight="0">
+       </Spinner>
+
+   </LinearLayout>
 
     <Button
         android:id="@+id/add_food"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="displayAddFood"
-        android:text="Add Food" />
+        android:text="@string/insert_food" />
 
-    <Space
+
+    <ListView
+        android:id="@+id/food_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
     <Button
@@ -32,5 +51,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="addMeal"
-        android:text="Add Meal" />
+        android:text="@string/add_meal" />
 </LinearLayout>

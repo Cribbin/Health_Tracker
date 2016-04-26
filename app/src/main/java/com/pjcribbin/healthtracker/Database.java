@@ -1,13 +1,12 @@
 package com.pjcribbin.healthtracker;
 
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 6;
+    private static int version = 7;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -30,7 +29,8 @@ public class Database extends SQLiteOpenHelper {
                     "sugar REAL)");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Meal" +
-                    "(_id INTEGER PRIMARY KEY)");
+                    "(_id INTEGER PRIMARY KEY," +
+                    "meal_type TEXT)");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Food_Meal" +
                     "(food_id INTEGER," +
@@ -65,7 +65,8 @@ public class Database extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS Meal");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Meal" +
-                    "(_id INTEGER PRIMARY KEY)");
+                    "(_id INTEGER PRIMARY KEY," +
+                    "meal_type TEXT)");
 
             db.execSQL("DROP TABLE IF EXISTS Food_Meal");
 
