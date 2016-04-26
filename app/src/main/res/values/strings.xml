@@ -13,6 +13,18 @@
     <string name="name_of_meal">Name of Meal</string>
     <string name="add_food">Add Food</string>
     <string name="edit_food">Edit Food</string>
+    <string name="create_new_meal">+ Create New Meal</string>
+    <string name="create_new_food">+ Create New Food</string>
+    <string name="food_name">Food Name</string>
+    <string name="calories">Calories</string>
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="fat">Fat</string>
+    <string name="protein">Protein</string>
+    <string name="sodium">Sodium</string>
+    <string name="sugar">Sugar</string>
+    <string name="zero_grams">0.0g</string>
+    <string name="zero_mg">0.0mg</string>
+    <string name="name">Name</string>
 
     <string-array name="meal_types">
         <item>Other</item>

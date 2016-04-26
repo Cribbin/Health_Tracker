@@ -10,73 +10,186 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.pjcribbin.healthtracker.AddNewFood">
 
-    <EditText
-        android:id="@+id/food_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Name"
-        android:maxLength="64" />
 
-    <EditText
-        android:id="@+id/food_calories"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Calories"
-        android:inputType="number"
-        android:maxLength="8" />
+        android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/food_carbohydrates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Carbohydrates (0.0g)"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/food_fat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Fat (0.0g)"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:text="@string/food_name"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/food_protein"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Protein (0.0g)"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+            <EditText
+                android:id="@+id/food_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="0"
+                android:width="250dp"
+                android:hint="@string/name"
+                android:maxLength="64" />
 
-    <EditText
-        android:id="@+id/food_sodium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Sodium (0.0mg)"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:text="@string/calories"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/food_sugar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:hint="Sugar (0.0g)"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+            <EditText
+                android:id="@+id/food_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="1"
+                android:width="250dp"
+                android:hint="@string/calories"
+                android:inputType="number"
+                android:maxLength="8" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="2"
+                android:text="@string/carbohydrates"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/food_carbohydrates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="2"
+                android:width="250dp"
+                android:hint="@string/zero_grams"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="3"
+                android:text="@string/fat"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/food_fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="3"
+                android:width="250dp"
+                android:hint="@string/zero_grams"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="4"
+                android:text="@string/protein"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/food_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="4"
+                android:width="250dp"
+                android:hint="@string/zero_grams"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="5"
+                android:text="@string/sodium"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/food_sodium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="5"
+                android:width="250dp"
+                android:hint="@string/zero_mg"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="6"
+                android:text="@string/sugar"
+                android:textAllCaps="true"
+                android:textColor="@color/primaryText"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/food_sugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_row="6"
+                android:width="250dp"
+                android:hint="@string/zero_grams"
+                android:inputType="numberDecimal"
+                android:maxLength="6" />
+
+        </GridLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/add_food_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:onClick="addFood"
-        android:text="Add Food" />
+        android:text="@string/add_food" />
 
 </LinearLayout>
