@@ -12,15 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="addNewFood"
-        android:text="New Food" />
+        android:text="@string/new_food" />
 
     <ListView
         android:id="@+id/food_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:layout_weight="1" />
 
     <Button
@@ -29,6 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:onClick="addMeal"
-        android:text="Add Meal" />
+        android:text="@string/add_meal" />
 
 </LinearLayout>

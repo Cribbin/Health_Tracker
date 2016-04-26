@@ -7,4 +7,6 @@
     <string name="track_meal">Track Meal</string>
     <string name="view_history">View History</string>
     <string name="view_stats">View Stats</string>
+    <string name="add_meal">Add Meal</string>
+    <string name="new_food">New Food</string>
 </resources>
