@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class AddFood extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private ArrayList<String> foodSelected;
+    private static Cursor c;
+    private static SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +37,12 @@ public class AddFood extends AppCompatActivity {
         try {
             Database dbHelper = new Database(this);
 
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
+            db = dbHelper.getReadableDatabase();
+            c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
 
             foodList.setAdapter(
                     new SimpleCursorAdapter(this, R.layout.food_row, c, new String[]{"_id", "food_name", "calories", "carbohydrates", "fat", "protein", "sodium", "sugar"}, new int[]{R.id.food_id, R.id.food_name, R.id.num_calories, R.id.num_carbohyrates, R.id.num_fats, R.id.num_protein, R.id.num_sodium, R.id.num_sugar}, 0)
             );
-
-            db.close();
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
             e.printStackTrace();
@@ -56,54 +56,6 @@ public class AddFood extends AppCompatActivity {
                     TextView textView = (TextView) view.findViewById(R.id.food_id);
                     int foodId = Integer.parseInt((String) textView.getText());
                     view.findViewById(R.id.food_row).setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-
-                    /*
-                    textView = (TextView) view.findViewById(R.id.food_name);
-                    String foodName = (String) textView.getText();
-
-                    Food foodClicked = new Food(foodId, foodName);
-
-                    // Add calories
-                    textView = (TextView) view.findViewById(R.id.num_calories);
-                    String calories = (String) textView.getText();
-                    if (!calories.equals("")) {
-                        foodClicked.setCalories(Integer.parseInt(calories));
-                    }
-
-                    // Add carbohydrates
-                    textView = (TextView) view.findViewById(R.id.num_carbohyrates);
-                    String carbohydrates = (String) textView.getText();
-                    if (!carbohydrates.equals("")) {
-                        foodClicked.setCarbohydrates(Double.parseDouble(carbohydrates));
-                    }
-
-                    // Add fat
-                    textView = (TextView) view.findViewById(R.id.num_fats);
-                    String fat = (String) textView.getText();
-                    if (!fat.equals("")) {
-                        foodClicked.setFat(Double.parseDouble(fat));
-                    }
-
-                    // Add protein
-                    textView = (TextView) view.findViewById(R.id.num_protein);
-                    String protein = (String) textView.getText();
-                    if (!protein.equals("")) {
-                        foodClicked.setProtein(Double.parseDouble(protein));
-                    }
-
-                    // Add sodium
-                    textView = (TextView) view.findViewById(R.id.num_sodium);
-                    String sodium = (String) textView.getText();
-                    if (!sodium.equals("")) {
-                        foodClicked.setSodium(Double.parseDouble(sodium));
-                    }
-
-                    // Add sugar
-                    textView = (TextView) view.findViewById(R.id.num_sugar);
-                    String sugar = (String) textView.getText();
-                    if (!sugar.equals("")) {
-                        foodClicked.setSugar(Double.parseDouble(sugar));
-                    }*/
 
                     foodSelected.add(String.valueOf(foodId));
                     Log.i(TAG, "Item added");
