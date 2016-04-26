@@ -34,6 +34,7 @@ public class AddNewMeal extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_meal);
 
         setUpMealTypeSpinner();
+        openDatabase();
 
         if (getIntentIfExists()) {
             populateFoodListView();
@@ -52,6 +53,8 @@ public class AddNewMeal extends AppCompatActivity {
         return true;
     }
 
+
+    // If after adding an item to the meal
     private boolean getIntentIfExists() {
         if (getIntent() != null) {
             Intent i = getIntent();
@@ -64,24 +67,18 @@ public class AddNewMeal extends AppCompatActivity {
         return false;
     }
 
+
+    // Called when Insert Food button in clicked
     public void displayAddFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddFood.class);
         startActivity(i);
     }
 
-    private void populateFoodListView() {
-        //Open Database
-        try {
-            Database dbHelper = new Database(this);
-            db = dbHelper.getWritableDatabase();
-        } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
-        }
 
+    // Generates list view with selected food objects
+    private void populateFoodListView() {
         ListView foodList = (ListView) findViewById(R.id.food_list);
 
-        // Generate query based on food ids given from intent
         String query = "SELECT * FROM FOOD WHERE (_id = ";
         for (int i = 0; i < foodIds.size(); i++) {
             query += foodIds.get(i) + " OR _id = ";
@@ -156,5 +153,15 @@ public class AddNewMeal extends AppCompatActivity {
                 mealType = "Other";
             }
         });
+    }
+
+    private void openDatabase() {
+        try {
+            Database dbHelper = new Database(this);
+            db = dbHelper.getWritableDatabase();
+        } catch (Exception e) {
+            Log.e(TAG, "Error opening database");
+            e.printStackTrace();
+        }
     }
 }

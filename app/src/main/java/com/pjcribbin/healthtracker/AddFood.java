@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,17 +28,17 @@ public class AddFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
 
+        openDatabase();
         setUpFoodList();
     }
 
+
+    // Sets up the list view of food in database
     private void setUpFoodList() {
         foodSelected = new ArrayList<>();
         final ListView foodList = (ListView) findViewById(R.id.food_list);
 
         try {
-            Database dbHelper = new Database(this);
-
-            db = dbHelper.getReadableDatabase();
             c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
 
             foodList.setAdapter(
@@ -68,11 +69,22 @@ public class AddFood extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    // Called when New Food Button is clicked
     public void addNewFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddNewFood.class);
         startActivity(i);
     }
 
+
+    // Called when Add to Meal button is clicked
     public void addMeal(View view) {
         Intent i = new Intent(getApplicationContext(), AddNewMeal.class);
 
@@ -81,5 +93,17 @@ public class AddFood extends AppCompatActivity {
             startActivity(i);
         } else
             Toast.makeText(getApplicationContext(), "You must select at least one food", Toast.LENGTH_SHORT).show();
+    }
+
+
+    // Sets up the readable database
+    private void openDatabase() {
+        try {
+            Database dbHelper = new Database(this);
+            db = dbHelper.getReadableDatabase();
+        } catch (Exception e) {
+            Log.e(TAG, "Error opening database");
+            e.printStackTrace();
+        }
     }
 }
