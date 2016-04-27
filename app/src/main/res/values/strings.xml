@@ -25,6 +25,7 @@
     <string name="zero_grams">0.0g</string>
     <string name="zero_mg">0.0mg</string>
     <string name="name">Name</string>
+    <string name="minus_1">-1</string>
 
     <string-array name="meal_types">
         <item>Other</item>

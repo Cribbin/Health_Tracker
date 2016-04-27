@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 18;
+    private static int version = 22;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -47,7 +47,7 @@ public class Database extends SQLiteOpenHelper {
                     ")");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Num_Steps" +
-                    "(_id INTEGER PRIMARY KEY," +
+                    "(day DATETIME DEFAULT CURRENT_DATE PRIMARY KEY," +
                     "steps INTEGER DEFAULT 0)");
 
             Log.i(TAG, "Database created successfully");
@@ -100,7 +100,7 @@ public class Database extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS Num_Steps");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Num_Steps" +
-                    "(_id INTEGER PRIMARY KEY," +
+                    "(day DATETIME DEFAULT CURRENT_DATE PRIMARY KEY," +
                     "steps INTEGER DEFAULT 0)");
 
             Log.i(TAG, "Database updated from version " + oldVer + " to version " + newVer);

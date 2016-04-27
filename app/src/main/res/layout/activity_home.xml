@@ -16,7 +16,7 @@
             android:id="@+id/step_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/zero"
+            android:text="@string/minus_1"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="75sp"
