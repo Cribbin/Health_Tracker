@@ -60,10 +60,10 @@ public class PedometerService extends IntentService {
                         try {
                             db.compileStatement("UPDATE Num_Steps " +
                                     "SET steps = steps + 1 " +
-                                    "WHERE day = CURRENT_DATE").execute();
+                                    "WHERE day = date('now', 'localtime')").execute();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.w(TAG, "Could not update");
+                            Log.e(TAG, "Could not update steps");
                         }
                     }
 
