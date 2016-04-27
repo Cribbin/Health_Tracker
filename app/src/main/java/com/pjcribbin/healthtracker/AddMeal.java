@@ -1,22 +1,20 @@
 package com.pjcribbin.healthtracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class AddMeal extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
@@ -38,7 +36,7 @@ public class AddMeal extends AppCompatActivity {
     }
 
     private void setUpMealList() {
-        final ListView mealList = (ListView) findViewById(R.id.meal_list);
+        ListView mealList = (ListView) findViewById(R.id.meal_list);
         Cursor c;
 
         try {
@@ -58,11 +56,22 @@ public class AddMeal extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.meal_id);
-                    int mealId = Integer.parseInt((String) textView.getText());
+                    final int mealId = Integer.parseInt((String) textView.getText());
                     textView = (TextView) view.findViewById(R.id.meal_name);
-                    String mealName = (String) textView.getText();
+                    final String mealName = (String) textView.getText();
 
-                    Log.i(TAG, "Meal ID: " + mealId + "\nMeal Name: " + mealName);
+                    new AlertDialog.Builder(AddMeal.this)
+                            .setIcon(android.R.drawable.ic_menu_add)
+                            .setTitle(mealName)
+                            .setMessage("Do you want to add meal " + mealName)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                    Log.i(TAG, "Meal ID: " + mealId + "\nMeal Name: " + mealName);
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
                 }
             });
         } catch (Exception e) {
