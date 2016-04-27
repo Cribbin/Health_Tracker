@@ -42,5 +42,11 @@
         android:text="HH:MM DD-MM-YYY"
         android:textColor="@color/secondaryText" />
 
+    <TextView
+        android:id="@+id/meal_id"
+        android:textSize="0sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
