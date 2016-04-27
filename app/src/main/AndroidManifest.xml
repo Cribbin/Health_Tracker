@@ -64,6 +64,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.AddNewMeal" />
         </activity>
+
+        <service
+            android:name=".Pedometer"
+            android:exported="false"></service>
     </application>
 
 </manifest>
