@@ -15,6 +15,10 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent i = new Intent(getApplicationContext(), Pedometer.class);
+        i.putExtra("message", "This is a service message");
+        startService(i);
     }
 
     @Override
