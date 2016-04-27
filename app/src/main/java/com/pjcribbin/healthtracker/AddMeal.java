@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +57,7 @@ public class AddMeal extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.meal_id);
-                    final int mealId = Integer.parseInt((String) textView.getText());
+                    final String mealId =(String) textView.getText();
                     textView = (TextView) view.findViewById(R.id.meal_name);
                     final String mealName = (String) textView.getText();
 
@@ -67,7 +68,12 @@ public class AddMeal extends AppCompatActivity {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int which) {
-                                    Log.i(TAG, "Meal ID: " + mealId + "\nMeal Name: " + mealName);
+                                    String query = "INSERT INTO Meal_Entry (meal_id) VALUES (?)";
+                                    SQLiteStatement statement = db.compileStatement(query);
+                                    statement.bindString(1, mealId);
+                                    statement.execute();
+
+                                    Toast.makeText(getApplicationContext(), mealName + " recorded successfully", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton("No", null)
