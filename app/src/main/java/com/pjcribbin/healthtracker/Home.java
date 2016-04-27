@@ -16,7 +16,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent i = new Intent(getApplicationContext(), Pedometer.class);
+        Intent i = new Intent(getApplicationContext(), PedometerService.class);
         i.putExtra("message", "This is a service message");
         startService(i);
     }
