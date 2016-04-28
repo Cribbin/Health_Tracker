@@ -34,6 +34,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         openDatabase();
         setUpSteps();
+        setUpCalories();
 
         stepsCount = (TextView) findViewById(R.id.step_count);
 
@@ -80,9 +81,25 @@ public class Home extends AppCompatActivity {
             e.printStackTrace();
             Log.w(TAG, "Day already exists");
         }
+    }
 
-        //stepsTextView.setText(steps);
+    private void setUpCalories() {
+        TextView caloriesCount = (TextView) findViewById(R.id.calories_count);
 
+        try {
+            Cursor c = db.rawQuery("SELECT sum(calories) AS cal " +
+                    "FROM Meal_Entry INNER JOIN Meal ON Meal_Entry.meal_id = Meal._id " +
+                    "INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
+                    "INNER JOIN Food ON Food_Meal.food_id = Food._id " +
+                    "WHERE date(timestamp) = date('now', 'localtime')" , null);
+
+            c.moveToFirst();
+            Log.i(TAG, "Calories count: " + c.getInt(c.getColumnIndex("cal")));
+            caloriesCount.setText(String.valueOf(c.getInt(c.getColumnIndex("cal"))));
+        } catch (Exception e) {
+            Log.e(TAG, "Error getting complete calories count\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Could not retrieve today's calorie count", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void displayHistory(View view) {
@@ -119,6 +136,7 @@ public class Home extends AppCompatActivity {
         String steps = "";
         boolean error = false;
         Cursor c;
+
         @Override
         public void run() {
             while (!error) {

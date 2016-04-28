@@ -51,7 +51,7 @@ public class AddMeal extends AppCompatActivity {
                                 "sum(sodium) AS sod, " +
                                 "sum(sugar) AS sug " +
                     "FROM Meal INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
-                    "JOIN Food ON Food_Meal.food_id = Food._id " +
+                    "INNER JOIN Food ON Food_Meal.food_id = Food._id " +
                     "GROUP BY Meal._id " +
                     "ORDER BY meal_name ASC", null);
 
