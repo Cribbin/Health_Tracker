@@ -71,15 +71,12 @@ public class Home extends AppCompatActivity {
         }
 
         try {
-            Cursor c = db.rawQuery("SELECT date('now', 'localtime') as cur, steps, day FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+            Cursor c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
             c.moveToFirst();
-
-            Log.i(TAG, "Number of days: " + c.getCount());
-            Log.i(TAG, "CURRENT DATE: " + c.getString(c.getColumnIndex("cur")));
-            Log.i(TAG, "Steps: " + c.getInt(c.getColumnIndex("steps")));
-            Log.i(TAG, "Date: " + c.getString(c.getColumnIndex("day")));
-
             steps = c.getString(c.getColumnIndex("steps"));
+
+            Log.i(TAG, "Steps: " + steps);
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error on grabbing step count");
