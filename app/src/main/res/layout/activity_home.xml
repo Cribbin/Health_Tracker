@@ -58,13 +58,15 @@
             android:id="@+id/view_history_button"
             style="@style/coloured_button"
             android:onClick="displayHistory"
-            android:text="@string/view_history" />
+            android:text="@string/history"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/view_stats_button"
             style="@style/coloured_button"
             android:onClick="displayStats"
-            android:text="@string/view_stats" />
+            android:text="@string/stats"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
