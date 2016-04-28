@@ -103,63 +103,80 @@ public class AddNewMeal extends AppCompatActivity {
         String mealId = "-1";
         String mealName;
         String query = "";
+        String checkQuery = "SELECT _id, meal_name FROM Meal Where meal_name = ";
+
+        Cursor c;
+        int nameInDb = -1;
 
         if (getIntentIfExists()) {
             EditText editName = (EditText) findViewById(R.id.meal_name);
             mealName = editName.getText().toString();
 
             if (mealName.matches("") || mealName.matches("\\s+")) {
-                Toast.makeText(getApplicationContext(), "Food name required", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Meal name required", Toast.LENGTH_SHORT).show();
             } else {
+                checkQuery += "'" + mealName + "'";
                 try {
-                    query = "INSERT INTO Meal (meal_type, meal_name) VALUES (?, ?)";
-                    SQLiteStatement statement = db.compileStatement(query);
-                    statement.bindString(1, mealType);
-                    statement.bindString(2, mealName);
-                    statement.execute();
-                    Log.i(TAG, "Created Meal " + mealName);
+                    c = db.rawQuery(checkQuery, null);
+                    nameInDb = c.getCount();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error creating meal", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error inserting new meal | Query:\n" + query);
                     e.printStackTrace();
+                    Log.e(TAG, "Error checking database\nQuery: " + checkQuery);
                 }
 
-                try {
-                    // Get meal ID
-                    cursor = db.rawQuery("SELECT Max(_id) AS meal_id, meal_name, meal_type FROM Meal LIMIT 1", null);
-
-                    cursor.moveToFirst();
-                    mealId = cursor.getString(cursor.getColumnIndex("meal_id"));
-                    mealName = cursor.getString(cursor.getColumnIndex("meal_name"));
-                    mealType = cursor.getString(cursor.getColumnIndex("meal_type"));
-
-                    Log.i(TAG, "Meal ID = " + mealId + "\nMeal Name: " + mealName + "\nMeal Type: " + mealType);
-
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error getting meal", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error getting meal ID");
-                    e.printStackTrace();
-                }
-
-                try {
-                    query = "INSERT INTO Food_Meal (food_id, meal_id) VALUES (?, ?)";
-                    SQLiteStatement statement;
-                    for (int i = 0; i < foodIds.size(); i++) {
-                        statement = db.compileStatement(query);
-                        statement.bindString(1, foodIds.get(i));
-                        statement.bindString(2, mealId);
+                if (nameInDb > 0) {
+                    Toast.makeText(getApplicationContext(), "Meal name " + mealName + " already exists", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        query = "INSERT INTO Meal (meal_type, meal_name) VALUES (?, ?)";
+                        SQLiteStatement statement = db.compileStatement(query);
+                        statement.bindString(1, mealType);
+                        statement.bindString(2, mealName);
                         statement.execute();
-
-                        Log.i(TAG, "Inserted " + foodIds.get(i) + " into " + mealId);
+                        Log.i(TAG, "Created Meal " + mealName);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error creating meal", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error inserting new meal | Query:\n" + query);
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "Error inserting food into Food_Meal");
-                    Toast.makeText(getApplicationContext(), "Error inserting into database", Toast.LENGTH_SHORT).show();
-                }
 
-                Intent i = new Intent(getApplicationContext(), AddMeal.class);
-                startActivity(i);
+                    try {
+                        // Get meal ID
+                        cursor = db.rawQuery("SELECT Max(_id) AS meal_id, meal_name, meal_type FROM Meal LIMIT 1", null);
+
+                        cursor.moveToFirst();
+                        mealId = cursor.getString(cursor.getColumnIndex("meal_id"));
+                        mealName = cursor.getString(cursor.getColumnIndex("meal_name"));
+                        mealType = cursor.getString(cursor.getColumnIndex("meal_type"));
+
+                        Log.i(TAG, "Meal ID = " + mealId + "\nMeal Name: " + mealName + "\nMeal Type: " + mealType);
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting meal", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error getting meal ID");
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        query = "INSERT INTO Food_Meal (food_id, meal_id) VALUES (?, ?)";
+                        SQLiteStatement statement;
+                        for (int i = 0; i < foodIds.size(); i++) {
+                            statement = db.compileStatement(query);
+                            statement.bindString(1, foodIds.get(i));
+                            statement.bindString(2, mealId);
+                            statement.execute();
+
+                            Log.i(TAG, "Inserted " + foodIds.get(i) + " into " + mealId);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e(TAG, "Error inserting food into Food_Meal");
+                        Toast.makeText(getApplicationContext(), "Error inserting into database", Toast.LENGTH_SHORT).show();
+                    }
+
+                    Intent i = new Intent(getApplicationContext(), AddMeal.class);
+                    startActivity(i);
+                }
             }
         } else {
             Log.i(TAG, "No food");
