@@ -10,23 +10,23 @@
         android:id="@+id/food_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Food Name"
+        android:text="@string/food_name"
         android:textAllCaps="true"
         android:textColor="#000"
         android:textStyle="bold" />
 
 
     <GridLayout
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="0"
             android:layout_row="0"
-            android:text="Calories: " />
+            android:text="@string/calories_colon" />
 
         <TextView
             android:id="@+id/num_calories"
@@ -34,16 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_row="0"
-            android:text="0" />
+            android:text="@string/zero" />
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="2"
             android:layout_row="0"
-            android:paddingLeft="15dp"
-            android:text="Carbohydrates: " />
+            android:text="@string/carbohydrates_colon" />
 
         <TextView
             android:id="@+id/num_carbohyrates"
@@ -51,14 +49,13 @@
             android:layout_height="wrap_content"
             android:layout_column="3"
             android:layout_row="0"
-            android:text="0.0g" />
+            android:text="@string/zero_grams" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="0"
             android:layout_row="1"
-            android:text="Fat: " />
+            android:text="@string/fat_colon" />
 
         <TextView
             android:id="@+id/num_fats"
@@ -66,15 +63,13 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_row="1"
-            android:text="0.0g" />
+            android:text="@string/zero_grams" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="2"
             android:layout_row="1"
-            android:paddingLeft="15dp"
-            android:text="Protein: " />
+            android:text="@string/protein_colon" />
 
         <TextView
             android:id="@+id/num_protein"
@@ -82,14 +77,13 @@
             android:layout_height="wrap_content"
             android:layout_column="3"
             android:layout_row="1"
-            android:text="0.0g" />
+            android:text="@string/zero_grams" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="0"
             android:layout_row="2"
-            android:text="Sodium: " />
+            android:text="@string/sodium_colon" />
 
         <TextView
             android:id="@+id/num_sodium"
@@ -97,15 +91,13 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_row="2"
-            android:text="0.0mg" />
+            android:text="@string/zero_mg" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/food_row_sub"
             android:layout_column="2"
             android:layout_row="2"
-            android:paddingLeft="15dp"
-            android:text="Sugar: " />
+            android:text="@string/sugar_colon" />
 
         <TextView
             android:id="@+id/num_sugar"
@@ -113,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_column="3"
             android:layout_row="2"
-            android:text="0.0mg" />
+            android:text="@string/zero_grams" />
 
         <TextView
             android:id="@+id/food_id"
