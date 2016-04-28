@@ -41,10 +41,22 @@ public class AddMeal extends AppCompatActivity {
         Cursor c;
 
         try {
-            c = db.rawQuery("SELECT * FROM Meal ORDER BY meal_name ASC", null);
+            c = db.rawQuery("SELECT Meal._id, " +
+                                "meal_name, " +
+                                "meal_type, " +
+                                "sum(calories) AS cal, " +
+                                "sum(carbohydrates) AS car, " +
+                                "sum(fat) AS fat, " +
+                                "sum(protein) AS pro, " +
+                                "sum(sodium) AS sod, " +
+                                "sum(sugar) AS sug " +
+                    "FROM Meal INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
+                    "JOIN Food ON Food_Meal.food_id = Food._id " +
+                    "GROUP BY Meal._id " +
+                    "ORDER BY meal_name ASC", null);
 
             mealList.setAdapter(
-                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"_id", "meal_name", "meal_type"}, new int[]{R.id.meal_id, R.id.meal_name, R.id.meal_type}, 0)
+                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"_id", "meal_name", "meal_type", "cal", "car", "fat", "pro", "sod", "sug"}, new int[]{R.id.meal_id, R.id.meal_name, R.id.meal_type, R.id.num_calories, R.id.num_carbohyrates, R.id.num_fats, R.id.num_protein, R.id.num_sodium, R.id.num_sugar}, 0)
             );
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
