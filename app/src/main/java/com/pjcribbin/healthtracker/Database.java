@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 28;
+    private static int version = 29;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -77,8 +77,8 @@ public class Database extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Meal" +
                     "(_id INTEGER PRIMARY KEY," +
-                    "meal_type TEXT UNIQUE," +
-                    "meal_name TEXT)");
+                    "meal_type TEXT," +
+                    "meal_name TEXT UNIQUE)");
 
             db.execSQL("DROP TABLE IF EXISTS Food_Meal");
 
