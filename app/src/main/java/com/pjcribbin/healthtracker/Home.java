@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +16,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class Home extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private static SQLiteDatabase db;
+    TextView stepsCount;
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            stepsCount.setText((String) message.obj);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +35,14 @@ public class Home extends AppCompatActivity {
         openDatabase();
         setUpSteps();
 
+        stepsCount = (TextView) findViewById(R.id.step_count);
+
         Intent i = new Intent(getApplicationContext(), PedometerService.class);
         i.putExtra("message", "This is a service message");
         startService(i);
+
+        Thread thread = new Thread(r);
+        thread.start();
     }
 
     @Override
@@ -58,8 +71,6 @@ public class Home extends AppCompatActivity {
 
     // TODO Make a tidier setUpSteps where it checks if the current day has been initialized or not
     private void setUpSteps() {
-        String steps = "";
-
         try {
             String query = "INSERT INTO Num_Steps (steps) VALUES (?)";
             SQLiteStatement statement = db.compileStatement(query);
@@ -70,21 +81,8 @@ public class Home extends AppCompatActivity {
             Log.w(TAG, "Day already exists");
         }
 
-        try {
-            Cursor c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-            c.moveToFirst();
-            steps = c.getString(c.getColumnIndex("steps"));
+        //stepsTextView.setText(steps);
 
-            Log.i(TAG, "Steps: " + steps);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, "Error on grabbing step count");
-            Toast.makeText(getApplicationContext(), "Could not retrieve step count", Toast.LENGTH_SHORT).show();
-        }
-
-        TextView stepsTextView = (TextView) findViewById(R.id.step_count);
-        stepsTextView.setText(steps);
     }
 
     public void displayHistory(View view) {
@@ -116,4 +114,31 @@ public class Home extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    Runnable r = new Runnable() {
+        String steps = "";
+        boolean error = false;
+        Cursor c;
+        @Override
+        public void run() {
+            while (!error) {
+                try {
+                    c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+                    c.moveToFirst();
+                    steps = c.getString(c.getColumnIndex("steps"));
+
+                    c.close();
+                    Message message = Message.obtain();
+                    message.obj = steps;
+                    message.setTarget(handler);
+                    message.sendToTarget();
+                    Thread.sleep(500); // Updates every .5 seconds
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "Error on grabbing step count");
+                    error = true;
+                }
+            }
+        }
+    };
 }
