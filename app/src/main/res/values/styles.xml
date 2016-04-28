@@ -8,4 +8,39 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="main_counters">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/minus_1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">75sp</item>
+    </style>
+
+    <style name="coloured_button">
+        <item name="android:selectable">true</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/selected</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="main_counters_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primaryText</item>
+    </style>
+
+    <style name="track_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
 </resources>

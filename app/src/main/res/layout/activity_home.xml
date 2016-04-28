@@ -14,26 +14,15 @@
 
         <TextView
             android:id="@+id/step_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/minus_1"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="75sp"
-            android:textStyle="bold" />
+            style="@style/main_counters" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/steps_today"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="20sp" />
+            style="@style/main_counters_text"
+            android:text="@string/steps_today" />
 
         <Button
             android:id="@+id/track_workout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/track_button"
             android:onClick="displayAddWorkout"
             android:text="@string/track_workout" />
     </LinearLayout>
@@ -46,26 +35,15 @@
 
         <TextView
             android:id="@+id/calories_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/zero"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="75sp"
-            android:textStyle="bold" />
+            style="@style/main_counters" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/calories_today"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="20sp" />
+            style="@style/main_counters_text"
+            android:text="@string/calories_today" />
 
         <Button
             android:id="@+id/track_meal_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/track_button"
             android:onClick="displayAddMeal"
             android:text="@string/track_meal" />
     </LinearLayout>
@@ -78,17 +56,13 @@
 
         <Button
             android:id="@+id/view_history_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/coloured_button"
             android:onClick="displayHistory"
             android:text="@string/view_history" />
 
         <Button
             android:id="@+id/view_stats_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/coloured_button"
             android:onClick="displayStats"
             android:text="@string/view_stats" />
 

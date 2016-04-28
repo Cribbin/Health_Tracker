@@ -8,4 +8,5 @@
     <color name="dividerColor">#B6B6B6</color>
     <color name="colorAccent">#FF5722</color>
     <color name="accentText">#ffffff</color>
+    <color name="selected">#A1CECA</color>
 </resources>

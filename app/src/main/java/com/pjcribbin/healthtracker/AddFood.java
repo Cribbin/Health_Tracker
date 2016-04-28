@@ -56,7 +56,7 @@ public class AddFood extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.food_id);
                     int foodId = Integer.parseInt((String) textView.getText());
-                    view.findViewById(R.id.food_row).setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    view.findViewById(R.id.food_row).setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.selected));
 
                     foodSelected.add(String.valueOf(foodId));
                     Log.i(TAG, "Item added");

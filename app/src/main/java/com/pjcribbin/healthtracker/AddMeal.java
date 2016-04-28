@@ -64,7 +64,7 @@ public class AddMeal extends AppCompatActivity {
                     new AlertDialog.Builder(AddMeal.this)
                             .setIcon(android.R.drawable.ic_menu_add)
                             .setTitle(mealName)
-                            .setMessage("Do you want to add meal " + mealName)
+                            .setMessage("Do you want to track the meal " + mealName)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int which) {
