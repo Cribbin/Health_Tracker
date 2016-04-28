@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -56,7 +59,10 @@ public class AddFood extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.food_id);
                     int foodId = Integer.parseInt((String) textView.getText());
-                    view.findViewById(R.id.food_row).setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.selected));
+
+                    textView = (TextView) view.findViewById(R.id.food_name);
+                    String foodName = (String) textView.getText();
+                    Toast.makeText(getApplicationContext(), foodName + " added", Toast.LENGTH_SHORT).show();
 
                     foodSelected.add(String.valueOf(foodId));
                     Log.i(TAG, "Item added");
