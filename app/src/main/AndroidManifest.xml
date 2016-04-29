@@ -52,13 +52,6 @@
                 android:value="com.pjcribbin.healthtracker.AddMeal" />
         </activity>
         <activity
-            android:name=".AddWorkout"
-            android:label="Select Workout">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pjcribbin.healthtracker.Home" />
-        </activity>
-        <activity
             android:name=".AddFood"
             android:label="Select Food">
             <meta-data

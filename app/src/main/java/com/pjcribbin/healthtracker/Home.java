@@ -118,11 +118,6 @@ public class Home extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void displayAddWorkout(View view) {
-        Intent i = new Intent(getApplicationContext(), AddWorkout.class);
-        startActivity(i);
-    }
-
     public void displayStats(View view) {
         Intent i = new Intent(getApplicationContext(), Stats.class);
         startActivity(i);
