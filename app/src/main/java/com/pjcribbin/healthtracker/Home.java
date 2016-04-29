@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,21 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_option:
+                Log.v(TAG, "Settings option clicked");
+                return true;
+            case R.id.reset_option:
+                Log.v(TAG, "Reset option clicked");
+                buildResetAlertDialog();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (isTaskRoot()) {
             new AlertDialog.Builder(this)
@@ -70,6 +86,47 @@ public class Home extends AppCompatActivity {
                     })
                     .setNegativeButton("No", null)
                     .show();
+        }
+    }
+
+    private void buildResetAlertDialog() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.alert_dark_frame)
+                .setTitle("Reset Data")
+                .setMessage("Are you sure you want to remove ALL your data?\nThis will remove all your meals, food and step history and cannot be undone!")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteAllData();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void deleteAllData() {
+        try {
+            db.execSQL("DELETE FROM Food");
+            db.execSQL("DELETE FROM Meal");
+            db.execSQL("DELETE FROM Food_Meal");
+            db.execSQL("DELETE FROM Meal_Entry");
+            db.execSQL("DELETE FROM Num_Steps");
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Could not remove data", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error: Could not remove data from tables\nStack Trace:\n" + Log.getStackTraceString(e));
+        }
+
+        try {
+            String query = "INSERT INTO Num_Steps (steps) VALUES (?)";
+            SQLiteStatement statement = db.compileStatement(query);
+            statement.bindString(1, "0");
+            statement.execute();
+            Log.i(TAG, "Today's date added");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w(TAG, "Day already exists");
         }
     }
 
