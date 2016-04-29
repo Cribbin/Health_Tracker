@@ -102,10 +102,11 @@ public class AddMeal extends AppCompatActivity {
                 new AlertDialog.Builder(AddMeal.this)
                         .setIcon(android.R.drawable.ic_menu_add)
                         .setTitle(clickedMealName)
-                        .setMessage("Do you want to track the meal " + clickedMealName)
+                        .setMessage("Do you want to track the meal " + clickedMealName + "?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int which) {
+                                Log.v(TAG, "Clicked meal number " + clickedMealId + " (" + clickedMealName + ")");
                                 String query = "INSERT INTO Meal_Entry (meal_id) VALUES (?)";
                                 try {
                                     SQLiteStatement statement = db.compileStatement(query);
@@ -117,6 +118,7 @@ public class AddMeal extends AppCompatActivity {
                                 }
 
                                 Toast.makeText(getApplicationContext(), clickedMealName + " recorded successfully", Toast.LENGTH_SHORT).show();
+                                Log.i(TAG, "Meal " + clickedMealId + " (" + clickedMealName + ") recorded in Meal_ database");
                             }
                         })
                         .setNegativeButton("No", null)
@@ -128,6 +130,10 @@ public class AddMeal extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        clickedMealName = ((TextView) info.targetView.findViewById(R.id.meal_name)).getText().toString();
+        clickedMealId = ((TextView) info.targetView.findViewById(R.id.meal_id)).getText().toString();
+
         if (v.getId()==R.id.meal_list) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_meal_options, menu);
@@ -136,17 +142,15 @@ public class AddMeal extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case R.id.view_option:
-                Log.v(TAG, "Meal view option clicked");
+                Log.v(TAG, "Meal view option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 return true;
             case R.id.edit_option:
-                Log.v(TAG, "Meal edit option clicked");
+                Log.v(TAG, "Meal edit option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 return true;
             case R.id.delete_option:
-                Log.v(TAG, "Meal delete option clicked");
-                Log.d(TAG, "Meal id: " + clickedMealId);
+                Log.v(TAG, "Meal delete option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 return true;
             default:
                 return super.onContextItemSelected(item);
