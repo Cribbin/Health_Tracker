@@ -20,7 +20,7 @@ public class Pedometer {
     private float currentY;
 
     public Pedometer(Context context) {
-        threshold = 20;
+        threshold = 15;
         previousY = 0;
         currentY = 0;
 
@@ -37,10 +37,7 @@ public class Pedometer {
             new SensorEventListener() {
                 public void onSensorChanged(SensorEvent event) {
                     // Gather the values from accelerometer
-                    float y = event.values[1];
-
-                    // Fetch the current Y
-                    currentY = y;
+                    currentY = event.values[1];
 
                     // Measure if a step is taken
                     if (Math.abs(currentY - previousY) > threshold) {
@@ -54,7 +51,7 @@ public class Pedometer {
                         }
                     }
 
-                    previousY = y;
+                    previousY = currentY;
                 }
 
                 public void onAccuracyChanged(Sensor sensor, int accuracy) {
