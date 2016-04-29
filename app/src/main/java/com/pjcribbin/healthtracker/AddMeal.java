@@ -86,8 +86,8 @@ public class AddMeal extends AppCompatActivity {
                             0)
             );
         } catch (Exception e) {
-            Log.e(TAG, "Error setting up list from database");
-            e.printStackTrace();
+            Log.e(TAG, "Error setting up list from database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Error setting up meal list", Toast.LENGTH_SHORT).show();
         }
 
         mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -164,8 +164,8 @@ public class AddMeal extends AppCompatActivity {
             Database dbHelper = new Database(this);
             db = dbHelper.getWritableDatabase();
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Error accessing database", Toast.LENGTH_SHORT).show();
         }
     }
 }
