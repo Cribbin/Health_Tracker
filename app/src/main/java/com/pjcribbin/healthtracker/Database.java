@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 30;
+    private static int version = 35;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -34,14 +34,14 @@ public class Database extends SQLiteOpenHelper {
                     "meal_name TEXT UNIQUE)");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Food_Meal" +
-                    "(food_id INTEGER," +
-                    "meal_id INTEGER," +
-                    "qty INTEGER," +
+                    "(food_id INTEGER REFERENCES Food(_id) ON UPDATE CASCADE ON DELETE SET NULL," +
+                    "meal_id INTEGER REFERENCES Meal(_id) ON UPDATE CASCADE ON DELETE CASCADE," +
+                    "qty INTEGER,\n" +
                     "PRIMARY KEY (food_id, meal_id)" +
                     ")");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Meal_Entry" +
-                    "(meal_id INTEGER," +
+                    "(meal_id INTEGER REFERENCES Meal(_id) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "timestamp DATETIME DEFAULT (datetime('now', 'localtime'))," +
                     "PRIMARY KEY (meal_id, timestamp)" +
                     ")");
@@ -53,7 +53,7 @@ public class Database extends SQLiteOpenHelper {
             Log.i(TAG, "Database created successfully");
 
         } catch (Exception e) {
-            Log.e(TAG, "Could not create Database");
+            Log.e(TAG, "Could not create Database\nStack Trace:" + Log.getStackTraceString(e));
             e.printStackTrace();
         }
     }
