@@ -133,6 +133,7 @@ public class AddMeal extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
         clickedMealName = ((TextView) info.targetView.findViewById(R.id.meal_name)).getText().toString();
         clickedMealId = ((TextView) info.targetView.findViewById(R.id.meal_id)).getText().toString();
+        menu.setHeaderTitle(clickedMealName);
 
         if (v.getId()==R.id.meal_list) {
             MenuInflater inflater = getMenuInflater();
