@@ -38,9 +38,7 @@ public class Home extends AppCompatActivity {
 
         stepsCount = (TextView) findViewById(R.id.step_count);
 
-        Intent i = new Intent(getApplicationContext(), PedometerService.class);
-        i.putExtra("message", "This is a service message");
-        startService(i);
+        startService(new Intent(getBaseContext(), PedometerService.class)); // Start step count
 
         Thread thread = new Thread(r);
         thread.start();

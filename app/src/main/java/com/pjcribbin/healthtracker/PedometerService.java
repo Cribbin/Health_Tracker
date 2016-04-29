@@ -11,21 +11,25 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
-public class PedometerService extends IntentService {
+public class PedometerService extends Service {
     private final static String TAG = "PJ_Health_Tracker";
     SQLiteDatabase db;
 
-    public PedometerService() {
-        super("PedometerService");
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
-        Log.i(TAG, intent.getStringExtra("message"));
-
+    public int onStartCommand(Intent intent, int flags, int startId) {
         Pedometer p = new Pedometer(this);
         p.enableAccelerometerListening();
+
+        return START_STICKY;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
