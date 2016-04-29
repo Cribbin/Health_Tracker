@@ -33,7 +33,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         openDatabase();
-        setUpSteps();
         setUpCalories();
 
         stepsCount = (TextView) findViewById(R.id.step_count);
@@ -74,19 +73,6 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    // TODO Make a tidier setUpSteps where it checks if the current day has been initialized or not
-    private void setUpSteps() {
-        try {
-            String query = "INSERT INTO Num_Steps (steps) VALUES (?)";
-            SQLiteStatement statement = db.compileStatement(query);
-            statement.bindString(1, "0");
-            statement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.w(TAG, "Day already exists");
-        }
-    }
-
     private void setUpCalories() {
         TextView caloriesCount = (TextView) findViewById(R.id.calories_count);
 
@@ -107,6 +93,8 @@ public class Home extends AppCompatActivity {
     }
 
     public void displayHistory(View view) {
+        Intent d = new Intent(Intent.ACTION_DATE_CHANGED);
+
         Intent i = new Intent(getApplicationContext(), History.class);
         startActivity(i);
     }
