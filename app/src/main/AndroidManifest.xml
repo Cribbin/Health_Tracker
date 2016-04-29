@@ -38,7 +38,8 @@
         </activity>
         <activity
             android:name=".AddNewFood"
-            android:label="Create New Food">
+            android:label="Create New Food"
+            android:noHistory="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pjcribbin.healthtracker.AddFood" />
