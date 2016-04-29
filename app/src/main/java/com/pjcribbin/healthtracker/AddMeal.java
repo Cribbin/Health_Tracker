@@ -9,7 +9,10 @@ import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -38,6 +41,7 @@ public class AddMeal extends AppCompatActivity {
 
     private void setUpMealList() {
         ListView mealList = (ListView) findViewById(R.id.meal_list);
+        registerForContextMenu(mealList);
         Cursor c;
 
         try {
@@ -69,7 +73,7 @@ public class AddMeal extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.meal_id);
-                    final String mealId =(String) textView.getText();
+                    final String mealId = (String) textView.getText();
                     textView = (TextView) view.findViewById(R.id.meal_name);
                     final String mealName = (String) textView.getText();
 
@@ -98,6 +102,34 @@ public class AddMeal extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId()==R.id.meal_list) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_meal_options, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case R.id.view_option:
+                Log.v(TAG, "Meal view option clicked");
+                return true;
+            case R.id.edit_option:
+                Log.v(TAG, "Meal edit option clicked");
+                return true;
+            case R.id.delete_option:
+                Log.v(TAG, "Meal delete option clicked");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
 
     public void addNewMeal(View view) {
         Intent i = new Intent(getApplicationContext(), AddFood.class);
