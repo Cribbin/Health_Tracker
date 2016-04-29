@@ -23,6 +23,8 @@ import android.widget.Toast;
 public class AddMeal extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private static SQLiteDatabase db;
+    private String clickedMealId;
+    private String clickedMealName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,47 +62,67 @@ public class AddMeal extends AppCompatActivity {
                     "ORDER BY meal_name ASC", null);
 
             mealList.setAdapter(
-                    new SimpleCursorAdapter(this, R.layout.meal_row, c, new String[]{"_id", "meal_name", "meal_type", "cal", "car", "fat", "pro", "sod", "sug"}, new int[]{R.id.meal_id, R.id.meal_name, R.id.meal_type, R.id.num_calories, R.id.num_carbohyrates, R.id.num_fats, R.id.num_protein, R.id.num_sodium, R.id.num_sugar}, 0)
+                    new SimpleCursorAdapter(this,
+                            R.layout.meal_row,
+                            c,
+                            new String[]{"_id",
+                                    "meal_name",
+                                    "meal_type",
+                                    "cal",
+                                    "car",
+                                    "fat",
+                                    "pro",
+                                    "sod",
+                                    "sug"},
+                            new int[]{R.id.meal_id,
+                                    R.id.meal_name,
+                                    R.id.meal_type,
+                                    R.id.num_calories,
+                                    R.id.num_carbohyrates,
+                                    R.id.num_fats,
+                                    R.id.num_protein,
+                                    R.id.num_sodium,
+                                    R.id.num_sugar},
+                            0)
             );
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
             e.printStackTrace();
         }
 
-        try {
-            mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    TextView textView = (TextView) view.findViewById(R.id.meal_id);
-                    final String mealId = (String) textView.getText();
-                    textView = (TextView) view.findViewById(R.id.meal_name);
-                    final String mealName = (String) textView.getText();
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.meal_id);
+                clickedMealId = (String) textView.getText();
+                textView = (TextView) view.findViewById(R.id.meal_name);
+                clickedMealName = (String) textView.getText();
 
-                    new AlertDialog.Builder(AddMeal.this)
-                            .setIcon(android.R.drawable.ic_menu_add)
-                            .setTitle(mealName)
-                            .setMessage("Do you want to track the meal " + mealName)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int which) {
-                                    String query = "INSERT INTO Meal_Entry (meal_id) VALUES (?)";
+                new AlertDialog.Builder(AddMeal.this)
+                        .setIcon(android.R.drawable.ic_menu_add)
+                        .setTitle(clickedMealName)
+                        .setMessage("Do you want to track the meal " + clickedMealName)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                String query = "INSERT INTO Meal_Entry (meal_id) VALUES (?)";
+                                try {
                                     SQLiteStatement statement = db.compileStatement(query);
-                                    statement.bindString(1, mealId);
+                                    statement.bindString(1, clickedMealId);
                                     statement.execute();
-
-                                    Toast.makeText(getApplicationContext(), mealName + " recorded successfully", Toast.LENGTH_SHORT).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "Error adding meal_entry into DB\nStack Trace:\n" + Log.getStackTraceString(e));
                                 }
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
-                }
-            });
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "Error on select meal item");
-            e.printStackTrace();
-        }
+
+                                Toast.makeText(getApplicationContext(), clickedMealName + " recorded successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -124,6 +146,7 @@ public class AddMeal extends AppCompatActivity {
                 return true;
             case R.id.delete_option:
                 Log.v(TAG, "Meal delete option clicked");
+                Log.d(TAG, "Meal id: " + clickedMealId);
                 return true;
             default:
                 return super.onContextItemSelected(item);
