@@ -13,5 +13,10 @@
             android:id="@+id/reset_option"
             android:orderInCategory="2"
             android:title="Reset Records" />
+
+        <item
+            android:id="@+id/populate_option"
+            android:orderInCategory="3"
+            android:title="Populate tables" />
     </group>
 </menu>

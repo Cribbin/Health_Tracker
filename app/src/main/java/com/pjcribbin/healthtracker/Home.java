@@ -66,6 +66,9 @@ public class Home extends AppCompatActivity {
                 Log.v(TAG, "Reset option clicked");
                 buildResetAlertDialog();
                 return true;
+            case R.id.populate_option:
+                Log.v(TAG, "Populate option clicked");
+                populateTables();
             default:
                 return super.onContextItemSelected(item);
         }
@@ -128,6 +131,14 @@ public class Home extends AppCompatActivity {
             e.printStackTrace();
             Log.w(TAG, "Day already exists");
         }
+    }
+
+    private void populateTables() {
+        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-28', 50)");
+        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-27', 500)");
+        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-26', 347)");
+        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-25', 212)");
+        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-24', 64)");
     }
 
     private void setUpCalories() {
