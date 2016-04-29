@@ -152,12 +152,25 @@ public class AddMeal extends AppCompatActivity {
                 return true;
             case R.id.delete_option:
                 Log.v(TAG, "Meal delete option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
+                deleteMealFromDB(clickedMealId, clickedMealName);
+                finish();
+                startActivity(getIntent());
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
+    private void deleteMealFromDB(String mealId, String mealName) {
+        try {
+            db.delete("Meal", "_id = " + mealId, null);
+            Toast.makeText(getApplicationContext(), "Deleted " + mealName, Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Deleted meal " + mealId + " (" + mealName + ") from database");
+        } catch (Exception e) {
+            Log.e(TAG, "Error deleting meal " + mealId + " (" + mealName + ") from database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Error deleting " + mealName, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void addNewMeal(View view) {
         Intent i = new Intent(getApplicationContext(), AddFood.class);
