@@ -20,7 +20,7 @@ public class Pedometer {
     private float currentY;
 
     public Pedometer(Context context) {
-        threshold = 15;
+        threshold = 13;
         previousY = 0;
         currentY = 0;
 
