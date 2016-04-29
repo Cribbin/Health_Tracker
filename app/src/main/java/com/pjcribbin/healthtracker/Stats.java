@@ -50,7 +50,7 @@ public class Stats extends AppCompatActivity {
         ArrayList<Entry> vals = new ArrayList<>();
         ArrayList<String> xVals = new ArrayList<>();
 
-        for (int i = 0; i < stepsHistory.get(0).size(); i ++) {
+        for (int i = 0; i < stepsHistory.get(0).size(); i++) {
             vals.add(new Entry(Float.parseFloat((String)stepsHistory.get(0).get(i)), i));
             xVals.add((String)stepsHistory.get(1).get(i));
         }
@@ -74,7 +74,7 @@ public class Stats extends AppCompatActivity {
         stepsArrayList.add(new ArrayList<Float>());
 
         try {
-            Cursor c = db.rawQuery("SELECT day, steps FROM Num_Steps", null);
+            Cursor c = db.rawQuery("SELECT day, steps FROM Num_Steps ORDER BY day ASC", null);
 
             c.moveToFirst();
 
