@@ -181,6 +181,7 @@ public class AddMeal extends AppCompatActivity {
         try {
             Database dbHelper = new Database(this);
             db = dbHelper.getWritableDatabase();
+            db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
             Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
             Toast.makeText(getApplicationContext(), "Error accessing database", Toast.LENGTH_SHORT).show();

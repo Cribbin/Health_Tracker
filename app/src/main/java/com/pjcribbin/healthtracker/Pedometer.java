@@ -66,6 +66,7 @@ public class Pedometer {
         try {
             Database dbHelper = new Database(context);
             db = dbHelper.getWritableDatabase();
+            db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
             Log.e(TAG, "Error opening database");
             e.printStackTrace();

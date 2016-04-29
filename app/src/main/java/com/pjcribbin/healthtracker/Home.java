@@ -132,6 +132,7 @@ public class Home extends AppCompatActivity {
         try {
             Database dbHelper = new Database(this);
             db = dbHelper.getReadableDatabase();
+            db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
             Log.e(TAG, "Error opening database");
             e.printStackTrace();

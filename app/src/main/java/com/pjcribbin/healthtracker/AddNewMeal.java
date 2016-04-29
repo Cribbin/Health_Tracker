@@ -204,6 +204,7 @@ public class AddNewMeal extends AppCompatActivity {
         try {
             Database dbHelper = new Database(this);
             db = dbHelper.getWritableDatabase();
+            db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
             Log.e(TAG, "Error opening database");
             e.printStackTrace();
