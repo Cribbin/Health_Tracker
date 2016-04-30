@@ -145,7 +145,7 @@ public class AddMeal extends AppCompatActivity {
                 return true;
             case R.id.delete_option:
                 Log.v(TAG, "Meal delete option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
-                deleteMealFromDB(clickedMealId, clickedMealName);
+                deleteMealFromDB();
                 finish();
                 startActivity(getIntent());
                 return true;
@@ -154,14 +154,14 @@ public class AddMeal extends AppCompatActivity {
         }
     }
 
-    private void deleteMealFromDB(String mealId, String mealName) {
+    private void deleteMealFromDB() {
         try {
-            db.delete("Meal", "_id = " + mealId, null);
-            Toast.makeText(getApplicationContext(), "Deleted " + mealName, Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Deleted meal " + mealId + " (" + mealName + ") from database");
+            db.delete("Meal", "_id = " + clickedMealId, null);
+            Toast.makeText(getApplicationContext(), "Deleted " + clickedMealName, Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Deleted meal " + clickedMealId + " (" + clickedMealName + ") from database");
         } catch (Exception e) {
-            Log.e(TAG, "Error deleting meal " + mealId + " (" + mealName + ") from database\nStack Trace:\n" + Log.getStackTraceString(e));
-            Toast.makeText(getApplicationContext(), "Error deleting " + mealName, Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error deleting meal " + clickedMealId + " (" + clickedMealName + ") from database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Error deleting " + clickedMealName, Toast.LENGTH_SHORT).show();
         }
     }
 
