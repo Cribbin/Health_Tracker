@@ -34,7 +34,6 @@ public class AddFood extends AppCompatActivity {
         setUpFoodList();
     }
 
-
     // Sets up the list view of food in database
     private void setUpFoodList() {
         final ListView foodList = (ListView) findViewById(R.id.food_list);

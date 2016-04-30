@@ -117,7 +117,9 @@ public class AddNewFood extends AppCompatActivity {
 
                 Toast.makeText(AddNewFood.this, foodName + " created successfully", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), AddFood.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+                finish();
             }
         }
     }
