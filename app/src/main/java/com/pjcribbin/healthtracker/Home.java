@@ -133,11 +133,37 @@ public class Home extends AppCompatActivity {
     }
 
     private void populateTables() {
-        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-28', 50)");
-        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-27', 500)");
-        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-26', 347)");
-        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-25', 212)");
-        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2016-04-24', 64)");
+        try {
+            // Populate Steps
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-29', 5045)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-28', 3000)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-27', 5000)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-26', 3478)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-25', 4812)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-24', 7122)");
+
+            // Populate Food
+            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    "VALUES ('Apple', 95, 25, 0.3, 0.5, 1.8, 19)");
+            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    "VALUES ('Weetabix Biscuit', 67, 12.85, 0.4, 2.15, 0.05, 0.85)");
+            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    //"VALUES ()");
+            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    //"VALUES ()");
+            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    //"VALUES ()");
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Error on table populate\nStack Trace:\n" + Log.getStackTraceString(e));
+        }
     }
 
     private void setUpCalories() {
