@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,9 +62,9 @@ public class AddNewFood extends AppCompatActivity {
             try {
                 c = db.rawQuery(checkQuery, null);
                 nameInDb = c.getCount();
-            } catch(Exception e) {
-                e.printStackTrace();
-                Log.e(TAG, "Error checking database\nQuery: " + checkQuery);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Error checking database", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error checking database\nStack Trace:\n" + Log.getStackTraceString(e));
             }
 
             if (nameInDb > 0) {
@@ -113,10 +112,7 @@ public class AddNewFood extends AppCompatActivity {
                         statement.execute();
                 } catch (Exception e) {
                     Toast.makeText(AddNewFood.this, "Error creating " + foodName, Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "INSERT INTO Food Error:\n" + query);
-                    e.printStackTrace();
-                } finally {
-                    db.close();
+                    Log.e(TAG, "INSERT INTO Food Error\nStack Trace:\n" + Log.getStackTraceString(e));
                 }
 
                 Toast.makeText(AddNewFood.this, foodName + " created successfully", Toast.LENGTH_SHORT).show();

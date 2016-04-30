@@ -2,23 +2,16 @@ package com.pjcribbin.healthtracker;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.DropBoxManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -99,8 +92,8 @@ public class Stats extends AppCompatActivity {
             db = dbHelper.getReadableDatabase();
             db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Could not open database", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 }

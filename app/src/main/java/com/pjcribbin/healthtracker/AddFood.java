@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,8 +67,8 @@ public class AddFood extends AppCompatActivity {
                             0)
             );
         } catch (Exception e) {
-            Log.e(TAG, "Error setting up list from database");
-            e.printStackTrace();
+            Log.e(TAG, "Error setting up list from database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Could not set up food list", Toast.LENGTH_SHORT).show();
         }
 
         try {
@@ -90,8 +89,7 @@ public class AddFood extends AppCompatActivity {
             });
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "Error on crete Food item");
-            e.printStackTrace();
+            Log.e(TAG, "Error on create Food item\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 
@@ -134,8 +132,8 @@ public class AddFood extends AppCompatActivity {
             Database dbHelper = new Database(this);
             db = dbHelper.getReadableDatabase();
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Could not open database", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 }

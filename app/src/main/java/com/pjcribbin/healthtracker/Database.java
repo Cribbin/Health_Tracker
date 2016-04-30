@@ -54,7 +54,6 @@ public class Database extends SQLiteOpenHelper {
 
         } catch (Exception e) {
             Log.e(TAG, "Could not create Database\nStack Trace:" + Log.getStackTraceString(e));
-            e.printStackTrace();
         }
     }
 
@@ -71,8 +70,7 @@ public class Database extends SQLiteOpenHelper {
 
             Log.i(TAG, "Database updated from version " + oldVer + " to version " + newVer);
         } catch (Exception e) {
-            Log.e(TAG, "Database failed to update from version " + oldVer + " to version " + newVer);
-            e.printStackTrace();
+            Log.e(TAG, "Database failed to update from version " + oldVer + " to version " + newVer + "\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 }

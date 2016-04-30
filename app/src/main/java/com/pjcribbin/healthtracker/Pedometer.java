@@ -46,8 +46,7 @@ public class Pedometer {
                                     "SET steps = steps + 1 " +
                                     "WHERE day = date('now', 'localtime')").execute();
                         } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e(TAG, "Could not update steps");
+                            Log.e(TAG, "Could not update steps\nStack Trace:\n" + Log.getStackTraceString(e));
                         }
                     }
 
@@ -65,8 +64,7 @@ public class Pedometer {
             db = dbHelper.getWritableDatabase();
             db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 }

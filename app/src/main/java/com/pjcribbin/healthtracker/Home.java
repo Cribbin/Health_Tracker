@@ -128,8 +128,7 @@ public class Home extends AppCompatActivity {
             statement.execute();
             Log.i(TAG, "Today's date added");
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.w(TAG, "Day already exists");
+            Log.w(TAG, "Day already exists\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 
@@ -183,8 +182,8 @@ public class Home extends AppCompatActivity {
             db = dbHelper.getReadableDatabase();
             db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Could not open database", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -208,8 +207,7 @@ public class Home extends AppCompatActivity {
                     message.sendToTarget();
                     Thread.sleep(500); // Updates every .5 seconds
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "Error on grabbing step count");
+                    Log.e(TAG, "Error on grabbing step count\nStack Trace:\n" + Log.getStackTraceString(e));
                     error = true;
                 }
             }

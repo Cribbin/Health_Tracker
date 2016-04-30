@@ -4,23 +4,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddNewMeal extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
@@ -87,8 +82,7 @@ public class AddNewMeal extends AppCompatActivity {
             );
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error retrieving food info from database", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "Error: Query:\n" + query);
-            e.printStackTrace();
+            Log.e(TAG, "Error retrieving food info from database\nStack Trace:\n" + Log.getStackTraceString(e));
         }
     }
 
@@ -113,8 +107,8 @@ public class AddNewMeal extends AppCompatActivity {
                     c = db.rawQuery(checkQuery, null);
                     nameInDb = c.getCount();
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "Error checking database\nQuery: " + checkQuery);
+                    Toast.makeText(getApplicationContext(), "Error checking database", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error checking database\nStack Trace:\n" + Log.getStackTraceString(e));
                 }
 
                 if (nameInDb > 0) {
@@ -129,8 +123,7 @@ public class AddNewMeal extends AppCompatActivity {
                         Log.i(TAG, "Created Meal " + mealName);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error creating meal", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "Error inserting new meal | Query:\n" + query);
-                        e.printStackTrace();
+                        Log.e(TAG, "Error inserting new meal\nStack Trace:\n" + Log.getStackTraceString(e));
                     }
 
                     try {
@@ -146,8 +139,7 @@ public class AddNewMeal extends AppCompatActivity {
 
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error getting meal", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "Error getting meal ID");
-                        e.printStackTrace();
+                        Log.e(TAG, "Error getting meal ID\nStack Trace:\n" + Log.getStackTraceString(e));
                     }
 
                     try {
@@ -162,8 +154,7 @@ public class AddNewMeal extends AppCompatActivity {
                             Log.i(TAG, "Inserted " + foodIds.get(i) + " into " + mealId);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e(TAG, "Error inserting food into Food_Meal");
+                        Log.e(TAG, "Error inserting food into Food_Meal\nStack Trace:\n" + Log.getStackTraceString(e));
                         Toast.makeText(getApplicationContext(), "Error inserting into database", Toast.LENGTH_SHORT).show();
                     }
 
@@ -199,8 +190,8 @@ public class AddNewMeal extends AppCompatActivity {
             db = dbHelper.getWritableDatabase();
             db.execSQL("PRAGMA foreign_keys = ON");
         } catch (Exception e) {
-            Log.e(TAG, "Error opening database");
-            e.printStackTrace();
+            Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Could not open database", Toast.LENGTH_SHORT).show();
         }
     }
 }
