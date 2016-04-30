@@ -172,8 +172,6 @@ public class Home extends AppCompatActivity {
                     "VALUES ('Full Fat Milk', 124, 9.32, 6.7, 6.64, 83, 10.85)");
             db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
                     "VALUES ('Glass of Orange Juice', 112, 26, 0, 2, 2, 21)");
-            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    //"VALUES ()");
 
             // Populate meals
             db.execSQL("INSERT INTO Meal (meal_name, meal_type) " +
@@ -187,7 +185,11 @@ public class Home extends AppCompatActivity {
 
             // Populate meal entries
             db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
-                    "VALUES (1, '2016-04-30 09:00:00')");
+                    "VALUES (1, '2016-04-30 08:44:00')");
+            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                    "VALUES (1, '2016-04-29 08:53:12')");
+            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                    "VALUES (1, '2016-04-28 08:48:52')");
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
