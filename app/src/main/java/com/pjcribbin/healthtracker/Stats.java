@@ -31,6 +31,8 @@ public class Stats extends AppCompatActivity {
 
     private void createLineChart() {
         ArrayList<ArrayList> stepsHistory = getStepsHistory();
+        ArrayList<ArrayList> caloriesHistory = getCaloriesHistory();
+
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
         // Set chart attributes
@@ -82,10 +84,38 @@ public class Stats extends AppCompatActivity {
             Log.e(TAG, "Error on gathering steps history\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
-        for (int i = 0; i < stepsArrayList.get(0).size(); i++) {
-            Log.i(TAG, "Steps: " + stepsArrayList.get(0).get(i) + "\nDay: " + stepsArrayList.get(1).get(i));
-        }
         return stepsArrayList;
+    }
+
+    private ArrayList<ArrayList> getCaloriesHistory() {
+        ArrayList<ArrayList> caloriesArrayList = new ArrayList<>();
+
+        caloriesArrayList.add(new ArrayList<String>());
+        caloriesArrayList.add(new ArrayList<Float>());
+
+        try {
+            Cursor c = db.rawQuery("SELECT sum(calories) AS cal, date(timestamp) AS day " +
+                    "FROM Meal_Entry INNER JOIN Meal ON Meal_Entry.meal_id = Meal._id " +
+                    "INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
+                    "INNER JOIN Food ON Food_Meal.food_id = Food._id " +
+                    "GROUP BY day " +
+                    "ORDER BY day ASC", null);
+
+            c.moveToFirst();
+
+            do {
+                caloriesArrayList.get(0).add(c.getString(c.getColumnIndex("cal")));
+                caloriesArrayList.get(1).add(c.getString(c.getColumnIndex("day")));
+            } while (c.moveToNext());
+            c.close();
+        } catch (Exception e) {
+            Log.e(TAG, "Error on gathering calories history\nStack Trace:\n" + Log.getStackTraceString(e));
+        }
+
+        for (int i = 0; i < caloriesArrayList.get(0).size(); i++) {
+            Log.i(TAG, "Calories: " + caloriesArrayList.get(0).get(i) + "\nDay: " + caloriesArrayList.get(1).get(i));
+        }
+        return caloriesArrayList;
     }
 
     private void openDatabase() {
