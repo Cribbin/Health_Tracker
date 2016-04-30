@@ -34,6 +34,12 @@ public class AddMeal extends AppCompatActivity {
         setUpMealList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMealList();
+    }
+
     private void setUpMealList() {
         ListView mealList = (ListView) findViewById(R.id.meal_list);
         registerForContextMenu(mealList);
