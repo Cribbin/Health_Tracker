@@ -94,9 +94,9 @@ public class Home extends AppCompatActivity {
 
     private void buildResetAlertDialog() {
         new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.alert_dark_frame)
+                .setIcon(android.R.drawable.ic_delete)
                 .setTitle("Reset Data")
-                .setMessage("Are you sure you want to remove ALL your data?\nThis will remove all your meals, food and step history and cannot be undone!")
+                .setMessage("Are you sure you want to remove ALL your data? This will remove all your meals, food and step history and cannot be undone!")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -147,6 +147,21 @@ public class Home extends AppCompatActivity {
                     "VALUES ('2016-04-25', 4812)");
             db.execSQL("INSERT INTO Num_Steps (day, steps) " +
                     "VALUES ('2016-04-24', 7122)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-23', 4598)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-22', 6444)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-21', 5012)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-20', 3897)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-19', 3924)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-18', 4001)");
+            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                    "VALUES ('2016-04-17', 5159)");
+
 
             // Populate Food
             db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
