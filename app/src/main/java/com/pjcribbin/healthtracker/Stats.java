@@ -38,6 +38,8 @@ public class Stats extends AppCompatActivity {
         chart.setDrawGridBackground(false);
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(true);
+        chart.setHighlightPerTapEnabled(false);
+        chart.setHighlightPerDragEnabled(false);
         chart.setDescription("Number of steps taken each day");
 
         ArrayList<Entry> vals = new ArrayList<>();
