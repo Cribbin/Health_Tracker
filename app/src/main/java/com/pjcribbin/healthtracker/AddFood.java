@@ -3,20 +3,18 @@ package com.pjcribbin.healthtracker;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -24,6 +22,8 @@ public class AddFood extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private ArrayList<String> foodSelected;
     private static SQLiteDatabase db;
+    private String clickedFoodId;
+    private String clickedFoodName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +37,35 @@ public class AddFood extends AppCompatActivity {
 
     // Sets up the list view of food in database
     private void setUpFoodList() {
-        foodSelected = new ArrayList<>();
         final ListView foodList = (ListView) findViewById(R.id.food_list);
+        foodSelected = new ArrayList<>();
+        registerForContextMenu(foodList);
         Cursor c;
 
         try {
             c = db.rawQuery("SELECT * FROM Food ORDER BY food_name ASC", null);
 
             foodList.setAdapter(
-                    new SimpleCursorAdapter(this, R.layout.food_row, c, new String[]{"_id", "food_name", "calories", "carbohydrates", "fat", "protein", "sodium", "sugar"}, new int[]{R.id.food_id, R.id.food_name, R.id.num_calories, R.id.num_carbohyrates, R.id.num_fats, R.id.num_protein, R.id.num_sodium, R.id.num_sugar}, 0)
+                    new SimpleCursorAdapter(this,
+                            R.layout.food_row,
+                            c,
+                            new String[]{"_id",
+                                    "food_name",
+                                    "calories",
+                                    "carbohydrates",
+                                    "fat",
+                                    "protein",
+                                    "sodium",
+                                    "sugar"},
+                            new int[]{R.id.food_id,
+                                    R.id.food_name,
+                                    R.id.num_calories,
+                                    R.id.num_carbohyrates,
+                                    R.id.num_fats,
+                                    R.id.num_protein,
+                                    R.id.num_sodium,
+                                    R.id.num_sugar},
+                            0)
             );
         } catch (Exception e) {
             Log.e(TAG, "Error setting up list from database");
@@ -58,13 +78,13 @@ public class AddFood extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view.findViewById(R.id.food_id);
-                    int foodId = Integer.parseInt((String) textView.getText());
+                    clickedFoodId = (String) textView.getText();
 
                     textView = (TextView) view.findViewById(R.id.food_name);
-                    String foodName = (String) textView.getText();
-                    Toast.makeText(getApplicationContext(), foodName + " added", Toast.LENGTH_SHORT).show();
+                    clickedFoodName = (String) textView.getText();
+                    Toast.makeText(getApplicationContext(), clickedFoodName + " added", Toast.LENGTH_SHORT).show();
 
-                    foodSelected.add(String.valueOf(foodId));
+                    foodSelected.add(clickedFoodId);
                     Log.i(TAG, "Item added");
                 }
             });
@@ -72,6 +92,20 @@ public class AddFood extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Error on item click", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Error on crete Food item");
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        clickedFoodName = ((TextView) info.targetView.findViewById(R.id.food_name)).getText().toString();
+        clickedFoodId = ((TextView) info.targetView.findViewById(R.id.food_id)).getText().toString();
+        menu.setHeaderTitle(clickedFoodName);
+
+        if (v.getId()==R.id.food_list) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_food_options, menu);
         }
     }
 
