@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -104,6 +105,34 @@ public class AddFood extends AppCompatActivity {
         if (v.getId()==R.id.food_list) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_food_options, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.edit_option:
+                Log.v(TAG, "Meal edit option clicked for meal " + clickedFoodId + " (" + clickedFoodName + ")");
+                return true;
+            case R.id.delete_option:
+                Log.v(TAG, "Meal delete option clicked for meal " + clickedFoodId + " (" + clickedFoodName + ")");
+                deleteFoodFromDb();
+                finish();
+                startActivity(getIntent());
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void deleteFoodFromDb() {
+        try {
+            db.delete("Food", "_id = " + clickedFoodId, null);
+            Toast.makeText(getApplicationContext(), "Deleted " + clickedFoodName, Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Deleted meal " + clickedFoodId + " (" + clickedFoodName + ") from database");
+        } catch (Exception e) {
+            Log.e(TAG, "Error deleting meal " + clickedFoodId + " (" + clickedFoodName + ") from database\nStack Trace:\n" + Log.getStackTraceString(e));
+            Toast.makeText(getApplicationContext(), "Error deleting " + clickedFoodName, Toast.LENGTH_SHORT).show();
         }
     }
 
