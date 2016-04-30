@@ -44,8 +44,8 @@ public class Stats extends AppCompatActivity {
         ArrayList<String> xVals = new ArrayList<>();
 
         for (int i = 0; i < stepsHistory.get(0).size(); i++) {
-            vals.add(new Entry(Float.parseFloat((String)stepsHistory.get(0).get(i)), i));
-            xVals.add((String)stepsHistory.get(1).get(i));
+            vals.add(new Entry(Float.parseFloat((String) stepsHistory.get(0).get(i)), i));
+            xVals.add((String) stepsHistory.get(1).get(i));
         }
 
         LineDataSet set = new LineDataSet(vals, "Steps");
@@ -71,10 +71,10 @@ public class Stats extends AppCompatActivity {
 
             c.moveToFirst();
 
-            while (c.moveToNext()) {
+            do {
                 stepsArrayList.get(0).add(c.getString(c.getColumnIndex("steps")));
                 stepsArrayList.get(1).add(c.getString(c.getColumnIndex("day")));
-            }
+            } while (c.moveToNext());
             c.close();
         } catch (Exception e) {
             Log.e(TAG, "Error on gathering steps history\nStack Trace:\n" + Log.getStackTraceString(e));
