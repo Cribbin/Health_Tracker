@@ -1,6 +1,7 @@
 package com.pjcribbin.healthtracker;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,7 +21,7 @@ public class Pedometer {
     private float currentY;
 
     public Pedometer(Context context) {
-        threshold = 13;
+        threshold = 3;
         previousY = 0;
         currentY = 0;
 
@@ -31,6 +32,7 @@ public class Pedometer {
     public void enableAccelerometerListening() {
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        Log.i(TAG, "Accelerometer listening enabled");
     }
 
     private SensorEventListener sensorEventListener =
@@ -42,9 +44,13 @@ public class Pedometer {
                     // Measure if a step is taken
                     if (Math.abs(currentY - previousY) > threshold) {
                         try {
-                            db.compileStatement("UPDATE Num_Steps " +
-                                    "SET steps = steps + 1 " +
-                                    "WHERE day = date('now', 'localtime')").execute();
+                            if ((db.rawQuery("SELECT * FROM Num_Steps WHERE day = date('now', 'localtime')", null)).getCount() > 0)
+                                db.compileStatement("UPDATE Num_Steps " +
+                                        "SET steps = steps + 1 " +
+                                        "WHERE day = date('now', 'localtime')").execute();
+                            else {
+                                db.execSQL("INSERT INTO Num_Steps (steps) VALUES(1)");
+                            }
                         } catch (Exception e) {
                             Log.e(TAG, "Could not update steps\nStack Trace:\n" + Log.getStackTraceString(e));
                         }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class PedometerService extends Service {
     private final static String TAG = "PJ_Health_Tracker";
@@ -12,6 +13,7 @@ public class PedometerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG, "Pedometer service started");
         Pedometer p = new Pedometer(this);
         p.enableAccelerometerListening();
 
