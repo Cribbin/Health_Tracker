@@ -1,7 +1,6 @@
 package com.pjcribbin.healthtracker;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,7 +20,7 @@ public class Pedometer {
     private float currentY;
 
     public Pedometer(Context context) {
-        threshold = 3;
+        threshold = 13;
         previousY = 0;
         currentY = 0;
 
