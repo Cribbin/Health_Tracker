@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
-    private static int version = 35;
+    private static int version = 36;
     private final static String TAG = "PJ_Health_Tracker";
 
     public Database(Context ctx) {
@@ -34,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
                     "meal_name TEXT UNIQUE)");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS Food_Meal" +
-                    "(food_id INTEGER REFERENCES Food(_id) ON UPDATE CASCADE ON DELETE SET NULL," +
+                    "(food_id INTEGER REFERENCES Food(_id) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "meal_id INTEGER REFERENCES Meal(_id) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "qty INTEGER,\n" +
                     "PRIMARY KEY (food_id, meal_id)" +
