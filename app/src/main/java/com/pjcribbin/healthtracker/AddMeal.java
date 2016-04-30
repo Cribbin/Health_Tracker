@@ -146,9 +146,6 @@ public class AddMeal extends AppCompatActivity {
             case R.id.view_option:
                 Log.v(TAG, "Meal view option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 return true;
-            case R.id.edit_option:
-                Log.v(TAG, "Meal edit option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
-                return true;
             case R.id.delete_option:
                 Log.v(TAG, "Meal delete option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 deleteMealFromDB();

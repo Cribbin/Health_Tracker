@@ -59,9 +59,6 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings_option:
-                Log.v(TAG, "Settings option clicked");
-                return true;
             case R.id.reset_option:
                 Log.v(TAG, "Reset option clicked");
                 buildResetAlertDialog();
