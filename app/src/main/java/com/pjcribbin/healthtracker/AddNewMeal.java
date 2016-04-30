@@ -48,13 +48,6 @@ public class AddNewMeal extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
     // If after adding an item to the meal
     private boolean getIntentIfExists() {
         if (getIntent() != null) {

@@ -22,12 +22,6 @@ public class AddNewFood extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_food);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     public void addFood(View view) {
         EditText editFoodName = (EditText) findViewById(R.id.food_name);
         String foodName = editFoodName.getText().toString();

@@ -22,12 +22,6 @@ public class History extends AppCompatActivity {
         populateListViewWithMealEntries();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     private void populateListViewWithMealEntries() {
         ListView mealList = (ListView) findViewById(R.id.meal_history_list);
         Cursor c;

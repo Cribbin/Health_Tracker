@@ -109,14 +109,6 @@ public class AddFood extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
     // Called when New Food Button is clicked
     public void addNewFood(View view) {
         Intent i = new Intent(getApplicationContext(), AddNewFood.class);
