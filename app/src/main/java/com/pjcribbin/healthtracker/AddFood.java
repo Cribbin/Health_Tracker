@@ -149,7 +149,9 @@ public class AddFood extends AppCompatActivity {
 
         if (foodSelected.size() > 0) {
             i.putStringArrayListExtra("foodIdList", foodSelected);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
+            finish();
         } else
             Toast.makeText(getApplicationContext(), "You must select at least one food", Toast.LENGTH_SHORT).show();
     }

@@ -159,7 +159,9 @@ public class AddNewMeal extends AppCompatActivity {
                     }
 
                     Intent i = new Intent(getApplicationContext(), AddMeal.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
+                    finish();
                 }
             }
         } else {
