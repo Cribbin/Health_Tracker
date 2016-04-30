@@ -167,13 +167,27 @@ public class Home extends AppCompatActivity {
             db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
                     "VALUES ('Apple', 95, 25, 0.3, 0.5, 1.8, 19)");
             db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    "VALUES ('Weetabix Biscuit', 67, 12.85, 0.4, 2.15, 0.05, 0.85)");
+                    "VALUES ('2 Weetabix Biscuits', 134, 25.7, 0.8, 4.3, 0.1, 1.7)");
+            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    "VALUES ('Full Fat Milk', 124, 9.32, 6.7, 6.64, 83, 10.85)");
+            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                    "VALUES ('Glass of Orange Juice', 112, 26, 0, 2, 2, 21)");
             //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
                     //"VALUES ()");
-            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    //"VALUES ()");
-            //db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    //"VALUES ()");
+
+            // Populate meals
+            db.execSQL("INSERT INTO Meal (meal_name, meal_type) " +
+                    "VALUES ('Weetabix and Orange Juice', 'Breakfast')");
+            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                    "VALUES (2,1)");
+            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                    "VALUES (3,1)");
+            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                    "VALUES (4,1)");
+
+            // Populate meal entries
+            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                    "VALUES (1, '2016-04-30 09:00:00')");
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
