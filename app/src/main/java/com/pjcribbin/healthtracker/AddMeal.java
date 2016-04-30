@@ -35,12 +35,6 @@ public class AddMeal extends AppCompatActivity {
         setUpMealList();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     private void setUpMealList() {
         ListView mealList = (ListView) findViewById(R.id.meal_list);
         registerForContextMenu(mealList);
