@@ -26,33 +26,33 @@ public class Stats extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
         openDatabase();
 
-        createLineChart();
-        setUpCaloriesChart();
+        LineChart stepsChart = (LineChart) findViewById(R.id.chart);
+        ArrayList<ArrayList> stepsHistory = getStepsHistory();
+        setUpChart(stepsChart, stepsHistory, "Number of steps taken each day", "steps");
+
+        LineChart caloriesChart = (LineChart) findViewById(R.id.calories_chart);
+        ArrayList<ArrayList> caloriesHistory = getCaloriesHistory();
+        setUpChart(caloriesChart, caloriesHistory, "Number of calories consumed each day", "Calories");
     }
 
-    private void createLineChart() {
-        ArrayList<ArrayList> stepsHistory = getStepsHistory();
-
-        LineChart chart = (LineChart) findViewById(R.id.chart);
-
-        // Set chart attributes
+    private void setUpChart(LineChart chart, ArrayList<ArrayList> history, String description, String label) {
         chart.setLogEnabled(false);
         chart.setDrawGridBackground(false);
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(true);
         chart.setHighlightPerTapEnabled(false);
         chart.setHighlightPerDragEnabled(false);
-        chart.setDescription("Number of steps taken each day");
+        chart.setDescription(description);
 
         ArrayList<Entry> vals = new ArrayList<>();
         ArrayList<String> xVals = new ArrayList<>();
 
-        for (int i = 0; i < stepsHistory.get(0).size(); i++) {
-            vals.add(new Entry(Float.parseFloat((String) stepsHistory.get(0).get(i)), i));
-            xVals.add((String) stepsHistory.get(1).get(i));
+        for (int i = 0; i < history.get(0).size(); i++) {
+            vals.add(new Entry(Float.parseFloat((String) history.get(0).get(i)), i));
+            xVals.add((String) history.get(1).get(i));
         }
 
-        LineDataSet set = new LineDataSet(vals, "Steps");
+        LineDataSet set = new LineDataSet(vals, label);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -74,7 +74,6 @@ public class Stats extends AppCompatActivity {
             Cursor c = db.rawQuery("SELECT day, steps FROM Num_Steps ORDER BY day ASC", null);
 
             c.moveToFirst();
-
             do {
                 stepsArrayList.get(0).add(c.getString(c.getColumnIndex("steps")));
                 stepsArrayList.get(1).add(c.getString(c.getColumnIndex("day")));
@@ -85,38 +84,6 @@ public class Stats extends AppCompatActivity {
         }
 
         return stepsArrayList;
-    }
-
-    private void setUpCaloriesChart() {
-        LineChart chart = (LineChart) findViewById(R.id.calories_chart);
-        ArrayList<ArrayList> caloriesHistory = getCaloriesHistory();
-
-        chart.setLogEnabled(false);
-        chart.setDrawGridBackground(false);
-        chart.setDoubleTapToZoomEnabled(false);
-        chart.setTouchEnabled(true);
-        chart.setHighlightPerTapEnabled(false);
-        chart.setHighlightPerDragEnabled(false);
-        chart.setDescription("Number of calories consumed each day");
-
-        ArrayList<Entry> vals = new ArrayList<>();
-        ArrayList<String> xVals = new ArrayList<>();
-
-        for (int i = 0; i < caloriesHistory.get(0).size(); i++) {
-            vals.add(new Entry(Float.parseFloat((String) caloriesHistory.get(0).get(i)), i));
-            xVals.add((String) caloriesHistory.get(1).get(i));
-        }
-
-        LineDataSet set = new LineDataSet(vals, "Calories");
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set);
-
-        LineData data = new LineData(xVals, dataSets);
-        chart.setData(data);
-
-        chart.invalidate();
     }
 
     private ArrayList<ArrayList> getCaloriesHistory() {
