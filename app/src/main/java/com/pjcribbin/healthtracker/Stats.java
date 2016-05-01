@@ -15,6 +15,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Stats extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
@@ -71,7 +73,7 @@ public class Stats extends AppCompatActivity {
         stepsArrayList.add(new ArrayList<Float>());
 
         try {
-            Cursor c = db.rawQuery("SELECT day, steps FROM Num_Steps ORDER BY day ASC", null);
+            Cursor c = db.rawQuery("SELECT day, steps FROM Num_Steps ORDER BY day DESC LIMIT 365", null);
 
             c.moveToFirst();
             do {
@@ -83,6 +85,8 @@ public class Stats extends AppCompatActivity {
             Log.e(TAG, "Error on gathering steps history\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
+        Collections.reverse(stepsArrayList.get(0));
+        Collections.reverse(stepsArrayList.get(1));
         return stepsArrayList;
     }
 
@@ -98,7 +102,8 @@ public class Stats extends AppCompatActivity {
                     "INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
                     "INNER JOIN Food ON Food_Meal.food_id = Food._id " +
                     "GROUP BY day " +
-                    "ORDER BY day ASC", null);
+                    "ORDER BY day DESC " +
+                    "LIMIT 365", null);
 
             c.moveToFirst();
 
@@ -111,9 +116,8 @@ public class Stats extends AppCompatActivity {
             Log.e(TAG, "Error on gathering calories history\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
-        for (int i = 0; i < caloriesArrayList.get(0).size(); i++) {
-            Log.i(TAG, "Calories: " + caloriesArrayList.get(0).get(i) + "\nDay: " + caloriesArrayList.get(1).get(i));
-        }
+        Collections.reverse(caloriesArrayList.get(0));
+        Collections.reverse(caloriesArrayList.get(1));
         return caloriesArrayList;
     }
 
