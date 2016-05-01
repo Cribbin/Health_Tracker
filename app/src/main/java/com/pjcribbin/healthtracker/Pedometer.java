@@ -1,17 +1,20 @@
 package com.pjcribbin.healthtracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 public class Pedometer {
     Context context;
     private final static String TAG = "PJ_Health_Tracker";
     SQLiteDatabase db;
+    Intent stepsIntent = new Intent("Step Taken");
 
     private int threshold; // Point at which to trigger a step
 
@@ -48,8 +51,9 @@ public class Pedometer {
                                         "SET steps = steps + 1 " +
                                         "WHERE day = date('now', 'localtime')").execute();
                             else {
-                                db.execSQL("INSERT INTO Num_Steps (steps) VALUES(1)");
+                                db.execSQL("INSERT INTO Num_Steps (steps) VALUES (1)");
                             }
+                            LocalBroadcastManager.getInstance(context).sendBroadcast(stepsIntent);
                         } catch (Exception e) {
                             Log.e(TAG, "Could not update steps\nStack Trace:\n" + Log.getStackTraceString(e));
                         }

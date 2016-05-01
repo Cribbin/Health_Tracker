@@ -1,13 +1,17 @@
 package com.pjcribbin.healthtracker;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +25,7 @@ public class Home extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private static SQLiteDatabase db;
     TextView stepsCount;
+    private Cursor c;
 
     Handler handler = new Handler() {
         @Override
@@ -34,14 +39,15 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         openDatabase();
-        setUpCalories();
 
         stepsCount = (TextView) findViewById(R.id.step_count);
+        Cursor c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+        c.moveToFirst();
+        stepsCount.setText(c.getString(c.getColumnIndex("steps")));
+        c.close();
 
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(stepsReceiver, new IntentFilter("Step Taken")); // Set up broadcastreceiver to update step count
         startService(new Intent(getBaseContext(), PedometerService.class)); // Start step count
-
-        Thread thread = new Thread(r);
-        thread.start();
     }
 
     @Override
@@ -198,14 +204,13 @@ public class Home extends AppCompatActivity {
         TextView caloriesCount = (TextView) findViewById(R.id.calories_count);
 
         try {
-            Cursor c = db.rawQuery("SELECT sum(calories) AS cal " +
+            c = db.rawQuery("SELECT sum(calories) AS cal " +
                     "FROM Meal_Entry INNER JOIN Meal ON Meal_Entry.meal_id = Meal._id " +
                     "INNER JOIN Food_Meal ON Meal._id = Food_Meal.meal_id " +
                     "INNER JOIN Food ON Food_Meal.food_id = Food._id " +
                     "WHERE date(timestamp) = date('now', 'localtime')" , null);
 
             c.moveToFirst();
-            Log.i(TAG, "Calories count: " + c.getInt(c.getColumnIndex("cal")));
             caloriesCount.setText(String.valueOf(c.getInt(c.getColumnIndex("cal"))));
         } catch (Exception e) {
             Log.e(TAG, "Error getting complete calories count\nStack Trace:\n" + Log.getStackTraceString(e));
@@ -214,8 +219,6 @@ public class Home extends AppCompatActivity {
     }
 
     public void displayHistory(View view) {
-        Intent d = new Intent(Intent.ACTION_DATE_CHANGED);
-
         Intent i = new Intent(getApplicationContext(), History.class);
         startActivity(i);
     }
@@ -241,20 +244,41 @@ public class Home extends AppCompatActivity {
         }
     }
 
+    private BroadcastReceiver stepsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String steps = "";
+            Log.i(TAG, "Step taken");
+
+            try {
+                c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+                c.moveToFirst();
+                steps = c.getString(c.getColumnIndex("steps"));
+                c.close();
+
+                Log.i(TAG, "Count: " + steps);
+
+                stepsCount.setText(steps);
+            } catch (Exception e) {
+                Log.e(TAG, "Error on stepsssss\nStack Trace:\n" + Log.getStackTraceString(e));
+            }
+        }
+    };
+
     Runnable r = new Runnable() {
         String steps = "";
-        boolean error = false;
-        Cursor c;
 
         @Override
         public void run() {
-            while (!error) {
+            while (true) {
                 try {
                     c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
                     c.moveToFirst();
                     steps = c.getString(c.getColumnIndex("steps"));
-
                     c.close();
+
+                    Log.i(TAG, "Steps: " + steps);
+
                     Message message = Message.obtain();
                     message.obj = steps;
                     message.setTarget(handler);
@@ -262,9 +286,14 @@ public class Home extends AppCompatActivity {
                     Thread.sleep(500); // Updates every .5 seconds
                 } catch (Exception e) {
                     Log.e(TAG, "Error on grabbing step count\nStack Trace:\n" + Log.getStackTraceString(e));
-                    error = true;
                 }
             }
         }
     };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        c.close();
+    }
 }
