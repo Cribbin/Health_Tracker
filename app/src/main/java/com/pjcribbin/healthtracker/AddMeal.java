@@ -143,9 +143,6 @@ public class AddMeal extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.view_option:
-                Log.v(TAG, "Meal view option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
-                return true;
             case R.id.delete_option:
                 Log.v(TAG, "Meal delete option clicked for meal " + clickedMealId + " (" + clickedMealName + ")");
                 deleteMealFromDB();

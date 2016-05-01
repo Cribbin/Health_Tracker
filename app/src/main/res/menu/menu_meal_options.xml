@@ -3,13 +3,8 @@
 
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/view_option"
-            android:orderInCategory="1"
-            android:title="Meal Details" />
-
-        <item
             android:id="@+id/delete_option"
-            android:orderInCategory="2"
+            android:orderInCategory="1"
             android:title="Delete Meal" />
     </group>
 
