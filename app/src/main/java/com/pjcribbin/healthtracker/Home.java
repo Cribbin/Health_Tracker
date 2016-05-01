@@ -27,13 +27,6 @@ public class Home extends AppCompatActivity {
     TextView stepsCount;
     private Cursor c;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message message) {
-            stepsCount.setText((String) message.obj);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +34,20 @@ public class Home extends AppCompatActivity {
         openDatabase();
 
         stepsCount = (TextView) findViewById(R.id.step_count);
-        Cursor c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-        c.moveToFirst();
-        stepsCount.setText(c.getString(c.getColumnIndex("steps")));
-        c.close();
 
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(stepsReceiver, new IntentFilter("Step Taken")); // Set up broadcastreceiver to update step count
+        try {
+            c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+            if (c.getCount() < 1) {
+                db.execSQL("INSERT INTO Num_Steps (steps) VALUES (0)");
+                c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+            }
+            c.moveToFirst();
+            stepsCount.setText(c.getString(c.getColumnIndex("steps")));
+        } catch (Exception e) {
+            Log.e(TAG, "Could not update steps text view\nStack Trace:\n" + Log.getStackTraceString(e));
+        }
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(stepsReceiver, new IntentFilter("Step Taken")); // Set up BroadcastReceiver to update step count
         startService(new Intent(getBaseContext(), PedometerService.class)); // Start step count
     }
 
@@ -136,68 +137,117 @@ public class Home extends AppCompatActivity {
     }
 
     private void populateTables() {
-        try {
-            // Populate Steps
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-29', 5045)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-28', 3000)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-27', 5000)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-26', 3478)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-25', 4812)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-24', 7122)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-23', 4598)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-22', 6444)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-21', 5012)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-20', 3897)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-19', 3924)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-18', 4001)");
-            db.execSQL("INSERT INTO Num_Steps (day, steps) " +
-                    "VALUES ('2016-04-17', 5159)");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Populate Steps
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-29', 5045)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-28', 3000)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-27', 5000)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-26', 3478)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-25', 4812)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-24', 7122)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-23', 4598)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-22', 6444)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-21', 5012)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-20', 3897)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-19', 3924)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-18', 4001)");
+                    db.execSQL("INSERT INTO Num_Steps (day, steps) " +
+                            "VALUES ('2016-04-17', 5159)");
 
 
-            // Populate Food
-            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    "VALUES ('Apple', 95, 25, 0.3, 0.5, 1.8, 19)");
-            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    "VALUES ('2 Weetabix Biscuits', 134, 25.7, 0.8, 4.3, 0.1, 1.7)");
-            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    "VALUES ('Full Fat Milk', 124, 9.32, 6.7, 6.64, 83, 10.85)");
-            db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
-                    "VALUES ('Glass of Orange Juice', 112, 26, 0, 2, 2, 21)");
+                    // Populate Food
+                    db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                            "VALUES ('Apple', 95, 25, 0.3, 0.5, 1.8, 19)");
+                    db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                            "VALUES ('2 Weetabix Biscuits', 134, 25.7, 0.8, 4.3, 0.1, 1.7)");
+                    db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                            "VALUES ('Full Fat Milk', 124, 9.32, 6.7, 6.64, 83, 10.85)");
+                    db.execSQL("INSERT INTO Food (food_name, calories, carbohydrates, fat, protein, sodium, sugar) " +
+                            "VALUES ('Glass of Orange Juice', 112, 26, 0, 2, 2, 21)");
 
-            // Populate meals
-            db.execSQL("INSERT INTO Meal (meal_name, meal_type) " +
-                    "VALUES ('Weetabix and Orange Juice', 'Breakfast')");
-            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
-                    "VALUES (2,1)");
-            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
-                    "VALUES (3,1)");
-            db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
-                    "VALUES (4,1)");
+                    // Populate meals
+                    db.execSQL("INSERT INTO Meal (meal_name, meal_type) " +
+                            "VALUES ('Weetabix and Orange Juice', 'Breakfast')");
+                    db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                            "VALUES (2,1)");
+                    db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                            "VALUES (3,1)");
+                    db.execSQL("INSERT INTO Food_Meal (food_id, meal_id) " +
+                            "VALUES (4,1)");
 
-            // Populate meal entries
-            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
-                    "VALUES (1, '2016-04-30 08:44:00')");
-            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
-                    "VALUES (1, '2016-04-29 08:53:12')");
-            db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
-                    "VALUES (1, '2016-04-28 08:48:52')");
+                    // Populate meal entries
+                    db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                            "VALUES (1, '2016-04-30 08:44:00')");
+                    db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                            "VALUES (1, '2016-04-29 08:53:12')");
+                    db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
+                            "VALUES (1, '2016-04-28 08:48:52')");
 
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
-            Log.e(TAG, "Error on table populate\nStack Trace:\n" + Log.getStackTraceString(e));
-        }
+                    int steps;
+                    for (int i = 1; i < 31; i++) {
+                        steps = 50*i;
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-01-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-02-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-03-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-04-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-05-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-06-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-07-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-08-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-09-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-10-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-11-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-12-" + i + "', " + steps + ")");
+
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-01-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-02-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-03-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-04-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-05-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-06-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-07-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-08-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-09-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-10-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-11-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-12-" + i + "', " + steps + ")");
+
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-01-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-02-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-03-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-04-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-05-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-06-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-07-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-08-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-09-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-10-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-11-" + i + "', " + steps + ")");
+                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-12-" + i + "', " + steps + ")");
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Error on table populate\nStack Trace:\n" + Log.getStackTraceString(e));
+                }
+            }
+        }).start();
+        Toast.makeText(getApplicationContext(), "Tables populated", Toast.LENGTH_SHORT).show();
     }
 
     private void setUpCalories() {
@@ -247,7 +297,7 @@ public class Home extends AppCompatActivity {
     private BroadcastReceiver stepsReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String steps = "";
+            String steps;
             Log.i(TAG, "Step taken");
 
             try {
@@ -260,33 +310,7 @@ public class Home extends AppCompatActivity {
 
                 stepsCount.setText(steps);
             } catch (Exception e) {
-                Log.e(TAG, "Error on stepsssss\nStack Trace:\n" + Log.getStackTraceString(e));
-            }
-        }
-    };
-
-    Runnable r = new Runnable() {
-        String steps = "";
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-                    c.moveToFirst();
-                    steps = c.getString(c.getColumnIndex("steps"));
-                    c.close();
-
-                    Log.i(TAG, "Steps: " + steps);
-
-                    Message message = Message.obtain();
-                    message.obj = steps;
-                    message.setTarget(handler);
-                    message.sendToTarget();
-                    Thread.sleep(500); // Updates every .5 seconds
-                } catch (Exception e) {
-                    Log.e(TAG, "Error on grabbing step count\nStack Trace:\n" + Log.getStackTraceString(e));
-                }
+                Log.e(TAG, "Error on steps\nStack Trace:\n" + Log.getStackTraceString(e));
             }
         }
     };
