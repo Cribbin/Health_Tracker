@@ -198,49 +198,6 @@ public class Home extends AppCompatActivity {
                     db.execSQL("INSERT INTO Meal_Entry (meal_id, timestamp) " +
                             "VALUES (1, '2016-04-28 08:48:52')");
 
-                    int steps;
-                    for (int i = 1; i < 31; i++) {
-                        steps = 50*i;
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-01-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-02-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-03-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-04-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-05-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-06-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-07-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-08-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-09-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-10-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-11-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2015-12-" + i + "', " + steps + ")");
-
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-01-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-02-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-03-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-04-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-05-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-06-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-07-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-08-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-09-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-10-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-11-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2014-12-" + i + "', " + steps + ")");
-
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-01-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-02-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-03-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-04-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-05-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-06-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-07-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-08-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-09-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-10-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-11-" + i + "', " + steps + ")");
-                        db.execSQL("INSERT INTO Num_Steps (day, steps) VALUES ('2013-12-" + i + "', " + steps + ")");
-                    }
-
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error on populating tables (Try to reset records first)", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error on table populate\nStack Trace:\n" + Log.getStackTraceString(e));
