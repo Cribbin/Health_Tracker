@@ -30,23 +30,39 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         openDatabase();
+        displayInitialStepCount();
 
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(stepsReceiver, new IntentFilter("Step Taken")); // Set up BroadcastReceiver to update step count
+        startService(new Intent(getBaseContext(), PedometerService.class)); // Start step count
+    }
+
+    private void displayInitialStepCount() {
         stepsCount = (TextView) findViewById(R.id.step_count);
 
+        String currentStepCount = getCurrentStepCount();
+        stepsCount.setText(currentStepCount);
+    }
+
+    private String getCurrentStepCount() {
+        String currentStepsCountInDatabase = "0";
         try {
-            c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-            if (c.getCount() < 1) {
-                db.execSQL("INSERT INTO Num_Steps (steps) VALUES (0)");
-                c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-            }
-            c.moveToFirst();
-            stepsCount.setText(c.getString(c.getColumnIndex("steps")));
+            currentStepsCountInDatabase = getCurrentStepCountFromDatabase();
         } catch (Exception e) {
             Log.e(TAG, "Could not update steps text view\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(stepsReceiver, new IntentFilter("Step Taken")); // Set up BroadcastReceiver to update step count
-        startService(new Intent(getBaseContext(), PedometerService.class)); // Start step count
+        return currentStepsCountInDatabase;
+    }
+
+    private String getCurrentStepCountFromDatabase() {
+        c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+        if (c.getCount() < 1) {
+            db.execSQL("INSERT INTO Num_Steps (steps) VALUES (0)");
+            c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
+        }
+        c.moveToFirst();
+
+        return c.getString(c.getColumnIndex("steps"));
     }
 
     @Override
