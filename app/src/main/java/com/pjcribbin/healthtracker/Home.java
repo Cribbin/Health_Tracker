@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 public class Home extends AppCompatActivity {
     private final static String TAG = "PJ_Health_Tracker";
     private static SQLiteDatabase db;
+    private static DBFunctions dbFuctions;
     TextView stepsCount;
     private Cursor c;
 
@@ -46,23 +46,12 @@ public class Home extends AppCompatActivity {
     private String getCurrentStepCount() {
         String currentStepsCountInDatabase = "0";
         try {
-            currentStepsCountInDatabase = getCurrentStepCountFromDatabase();
+            currentStepsCountInDatabase = dbFuctions.getCurrentStepCountFromDatabase();
         } catch (Exception e) {
             Log.e(TAG, "Could not update steps text view\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
         return currentStepsCountInDatabase;
-    }
-
-    private String getCurrentStepCountFromDatabase() {
-        c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-        if (c.getCount() < 1) {
-            db.execSQL("INSERT INTO Num_Steps (steps) VALUES (0)");
-            c = db.rawQuery("SELECT steps FROM Num_Steps WHERE day = date('now', 'localtime')", null);
-        }
-        c.moveToFirst();
-
-        return c.getString(c.getColumnIndex("steps"));
     }
 
     @Override
@@ -129,21 +118,14 @@ public class Home extends AppCompatActivity {
 
     private void deleteAllData() {
         try {
-            db.execSQL("DELETE FROM Food");
-            db.execSQL("DELETE FROM Meal");
-            db.execSQL("DELETE FROM Food_Meal");
-            db.execSQL("DELETE FROM Meal_Entry");
-            db.execSQL("DELETE FROM Num_Steps");
+            dbFuctions.removeAllDataFromDatabase();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Could not remove data", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Error: Could not remove data from tables\nStack Trace:\n" + Log.getStackTraceString(e));
         }
 
         try {
-            String query = "INSERT INTO Num_Steps (steps) VALUES (?)";
-            SQLiteStatement statement = db.compileStatement(query);
-            statement.bindString(1, "0");
-            statement.execute();
+            dbFuctions.initializeTodayIntoNum_Steps();
             Log.i(TAG, "Today's date added");
         } catch (Exception e) {
             Log.w(TAG, "Day already exists\nStack Trace:\n" + Log.getStackTraceString(e));
@@ -267,6 +249,7 @@ public class Home extends AppCompatActivity {
             Database dbHelper = new Database(this);
             db = dbHelper.getReadableDatabase();
             db.execSQL("PRAGMA foreign_keys = ON");
+            dbFuctions = new DBFunctions(db);
         } catch (Exception e) {
             Log.e(TAG, "Error opening database\nStack Trace:\n" + Log.getStackTraceString(e));
             Toast.makeText(getApplicationContext(), "Could not open database", Toast.LENGTH_SHORT).show();
